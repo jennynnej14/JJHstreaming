@@ -1,0 +1,285 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  font-family: 'Kanit', sans-serif;
+  color: #754b5d;
+  background: #fff7fa;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #fff7fa;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 4px 22px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand h2 {
+  margin: 0;
+  font-size: 19px;
+  color: #bd6488;
+}
+
+.brand small {
+  color: #ad8b9a;
+  font-size: 11px;
+}
+
+.peach {
+  font-size: 38px;
+}
+
+.heart {
+  font-size: 32px;
+  color: #ed91b3;
+}
+
+.navigation {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: white;
+  border: 1px solid #f8e3eb;
+  border-radius: 22px;
+  box-shadow: 0 5px 20px #eecbd733;
+}
+
+.nav-item {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: #a58a96;
+  border-radius: 15px;
+  padding: 12px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+}
+
+.nav-item.active {
+  background: #ffedf4;
+  color: #d66f99;
+  font-weight: 600;
+}
+
+.content {
+  padding: 24px 0;
+}
+
+.welcome {
+  position: relative;
+  overflow: hidden;
+  padding: 38px;
+  min-height: 230px;
+  border-radius: 28px;
+  background: linear-gradient(120deg, #ffe0ec, #fff0dc);
+}
+
+.tag {
+  color: #d2789d;
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.welcome h1 {
+  font-size: clamp(30px, 6vw, 48px);
+  line-height: 1.2;
+  margin: 15px 0 8px;
+  color: #a9577b;
+}
+
+.welcome p {
+  color: #a77c8f;
+}
+
+.welcome-icon {
+  position: absolute;
+  right: 35px;
+  bottom: 10px;
+  font-size: 95px;
+  transform: rotate(-15deg);
+}
+
+.section {
+  margin-top: 28px;
+}
+
+.section h1 {
+  color: #a9577b;
+  font-size: 28px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-title h2 {
+  font-size: 21px;
+}
+
+.song-card,
+.rank-card,
+.stamp-preview,
+.profile-points {
+  background: white;
+  border: 1px solid #f7e4ec;
+  border-radius: 19px;
+  padding: 18px;
+  margin: 12px 0;
+}
+
+.song-heading {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.song-heading span {
+  color: #d8789d;
+}
+
+.progress {
+  height: 9px;
+  background: #f9eaf0;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress div {
+  height: 100%;
+  background: linear-gradient(90deg, #ffabc9, #e77da7);
+  border-radius: 20px;
+}
+
+.song-card small,
+.notice {
+  color: #ac929e;
+  font-size: 12px;
+}
+
+.stamp-preview {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  background: #fff0f5;
+}
+
+.stamp-preview span {
+  font-size: 65px;
+}
+
+.stamp-preview small {
+  color: #ad8b9a;
+}
+
+.rank-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rank-card strong {
+  color: #d8789d;
+}
+
+.rank-card b {
+  font-size: 13px;
+  color: #b66b8b;
+}
+
+.profile {
+  text-align: center;
+  padding: 30px 0;
+}
+
+.avatar {
+  margin: auto;
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  background: #ffe3ed;
+  display: grid;
+  place-items: center;
+  font-size: 55px;
+}
+
+.profile-points {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #d2789d;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  color: #c28da4;
+  font-size: 12px;
+  padding: 25px;
+}
+
+@media (max-width: 500px) {
+  .app {
+    padding: 13px;
+  }
+
+  .welcome {
+    padding: 25px;
+  }
+
+  .welcome-icon {
+    right: 15px;
+    font-size: 65px;
+    opacity: 0.7;
+  }
+
+  .nav-item {
+    font-size: 10px;
+  }
+
+  .rank-card {
+    font-size: 13px;
+  }
+}
