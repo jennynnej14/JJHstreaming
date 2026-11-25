@@ -1,0 +1,147 @@
+
+import React, { useState } from "react";
+import {
+  Home, Music2, Trophy, UserRound, Heart,
+  Play, Star, Menu
+} from "lucide-react";
+
+const songs = [
+  { name: "Title Track", goal: 1000000, streams: 650000 },
+  { name: "Track 02", goal: 500000, streams: 320000 },
+  { name: "Track 03", goal: 500000, streams: 275000 }
+];
+
+const members = [
+  { name: "Peach Lover", points: 1250 },
+  { name: "JH Supporter", points: 980 },
+  { name: "Jaehyun Day", points: 750 }
+];
+
+export default function App() {
+  const [page, setPage] = useState("Home");
+
+  const nav = [
+    { name: "Home", icon: Home },
+    { name: "Stream", icon: Music2 },
+    { name: "Ranking", icon: Trophy },
+    { name: "Profile", icon: UserRound }
+  ];
+
+  return (
+    <div className="app">
+      <header className="topbar">
+        <div className="brand">
+          <span className="peach">🍑</span>
+          <div>
+            <h2>Peach Streaming </h2>
+            <small>Streaming together, shining forever</small>
+          </div>
+        </div>
+        <span className="heart">♡</span>
+      </header>
+
+      <nav className="navigation">
+        {nav.map(item => {
+          const Icon = item.icon;
+          return (
+            <button
+              key={item.name}
+              className={page === item.name ? "nav-item active" : "nav-item"}
+              onClick={() => setPage(item.name)}
+            >
+              <Icon size={19} />
+              <span>{item.name}</span>
+            </button>
+          );
+        })}
+      </nav>
+
+      <main className="content">
+        {page === "Home" && (
+          <>
+            <section className="welcome">
+              <span className="tag">♡ JAЕHYUN SUPPORT PROJECT</span>
+              <h1>Let's stream<br />together! 🍑</h1>
+              <p>ทุกสตรีมของเรามีความหมาย</p>
+              <div className="welcome-icon">🍑</div>
+            </section>
+
+            <section className="section">
+              <div className="section-title">
+                <h2>Our Streaming Goal</h2>
+                <span>🎧</span>
+              </div>
+              {songs.map((song, index) => (
+                <div className="song-card" key={song.name}>
+                  <div className="song-heading">
+                    <strong>{song.name}</strong>
+                    <span>{Math.round(song.streams / song.goal * 100)}%</span>
+                  </div>
+                  <div className="progress">
+                    <div style={{
+                      width: `${Math.min(song.streams / song.goal * 100, 100)}%`
+                    }} />
+                  </div>
+                  <small>
+                    {song.streams.toLocaleString()} / {song.goal.toLocaleString()} streams
+                  </small>
+                </div>
+              ))}
+              <p className="notice">
+                * ตัวเลขนี้เป็นข้อมูลตัวอย่าง ยังไม่ใช่ยอดสตรีมจริง
+              </p>
+            </section>
+          </>
+        )}
+
+        {page === "Stream" && (
+          <section className="section">
+            <span className="tag">DAILY COLLECTION</span>
+            <h1>Monthly Peach Stamp 🍑</h1>
+            <p>ส่งหลักฐานการสตรีมเพื่อรับสแตมป์ประจำวัน</p>
+            <div className="stamp-preview">
+              <span>🍑</span>
+              <strong>Your daily stamp awaits!</strong>
+              <small>ระบบส่งหลักฐานจะเปิดใช้งานหลังเชื่อม Firebase</small>
+            </div>
+            <h2>Special Streaming Challenge</h2>
+            <p>ภารกิจพิเศษสะสม Peach Points</p>
+          </section>
+        )}
+
+        {page === "Ranking" && (
+          <section className="section">
+            <span className="tag">PEACH COMMUNITY</span>
+            <h1>Peach Ranking 🏆</h1>
+            {members.map((member, index) => (
+              <div className="rank-card" key={member.name}>
+                <strong>#{index + 1}</strong>
+                <span>{member.name}</span>
+                <b>{member.points.toLocaleString()} pts</b>
+              </div>
+            ))}
+            <p className="notice">คะแนนตัวอย่าง รอเชื่อมฐานข้อมูลสมาชิก</p>
+          </section>
+        )}
+
+        {page === "Profile" && (
+          <section className="section profile">
+            <div className="avatar">🍑</div>
+            <h1>My Peach Profile</h1>
+            <p>Welcome to Peach Stream Hub!</p>
+            <div className="profile-points">
+              <Star size={20} />
+              <strong>0 Peach Points</strong>
+            </div>
+            <p className="notice">ระบบแก้ไขโปรไฟล์จะเปิดใช้งานหลังเชื่อม Firebase</p>
+          </section>
+        )}
+      </main>
+
+      <footer>
+        <Heart size={14} fill="currentColor" />
+        Made with love for Jaehyun
+      </footer>
+    </div>
+  );
+}
