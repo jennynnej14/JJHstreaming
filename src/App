@@ -1,147 +1,430 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Home, Music2, Trophy, UserRound, Heart,
-  Play, Star, Menu
-} from "lucide-react";
-
-const songs = [
-  { name: "Title Track", goal: 1000000, streams: 650000 },
-  { name: "Track 02", goal: 500000, streams: 320000 },
-  { name: "Track 03", goal: 500000, streams: 275000 }
-];
-
-const members = [
-  { name: "Peach Lover", points: 1250 },
-  { name: "JH Supporter", points: 980 },
-  { name: "Jaehyun Day", points: 750 }
-];
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  updateProfile
+} from "firebase/auth";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp
+} from "firebase/firestore";
+import { auth, db } from "./firebase";
 
 export default function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [mode, setMode] = useState("login");
   const [page, setPage] = useState("Home");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [members, setMembers] = useState([]);
+  const [message, setMessage] = useState("");
+  const [saving, setSaving] = useState(false);
 
-  const nav = [
-    { name: "Home", icon: Home },
-    { name: "Stream", icon: Music2 },
-    { name: "Ranking", icon: Trophy },
-    { name: "Profile", icon: UserRound }
-  ];
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
+
+      if (currentUser) {
+        const ref = doc(db, "users", currentUser.uid);
+        const snap = await getDoc(ref);
+
+        if (!snap.exists()) {
+          await setDoc(ref, {
+            displayName: currentUser.displayName || "Peach Member",
+            email: currentUser.email,
+            points: 0,
+            createdAt: serverTimestamp()
+          });
+        }
+      }
+
+      setLoading(false);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const q = query(
+      collection(db, "users"),
+      orderBy("points", "desc")
+    );
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setMembers(
+        snapshot.docs.map((item) => ({
+          id: item.id,
+          ...item.data()
+        }))
+      );
+    }, (error) => {
+      setMessage("โหลดอันดับไม่สำเร็จ: " + error.message);
+    });
+
+    return unsubscribe;
+  }, [user]);
+
+  const handleAuth = async (e) => {
+    e.preventDefault();
+    setMessage("");
+    setSaving(true);
+
+    try {
+      if (mode === "register") {
+        const result = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+        await updateProfile(result.user, {
+          displayName: displayName
+        });
+
+        await setDoc(doc(db, "users", result.user.uid), {
+          displayName,
+          email,
+          points: 0,
+          createdAt: serverTimestamp()
+        });
+      } else {
+        await signInWithEmailAndPassword(auth, email, password);
+      }
+    } catch (error) {
+      setMessage(error.message);
+    }
+
+    setSaving(false);
+  };
+
+  const saveName = async () => {
+    if (!displayName.trim()) return;
+
+    setSaving(true);
+
+    try {
+      await updateProfile(user, {
+        displayName: displayName.trim()
+      });
+
+      await setDoc(doc(db, "users", user.uid), {
+        displayName: displayName.trim()
+      }, { merge: true });
+
+      setMessage("บันทึกชื่อเรียบร้อยแล้ว 💗");
+    } catch (error) {
+      setMessage(error.message);
+    }
+
+    setSaving(false);
+  };
+
+  if (loading) {
+    return <div style={styles.center}>กำลังเปิด Peach Stream Hub 🍑</div>;
+  }
+
+  if (!user) {
+    return (
+      <div style={styles.loginPage}>
+        <div style={styles.loginCard}>
+          <div style={{ fontSize: 55 }}>🍑</div>
+          <h1>Peach Stream Hub</h1>
+          <p>Let's stream together, shining forever!</p>
+
+          <form onSubmit={handleAuth}>
+            {mode === "register" && (
+              <input
+                style={styles.input}
+                placeholder="ชื่อที่ใช้ในเว็บ"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                required
+              />
+            )}
+
+            <input
+              style={styles.input}
+              type="email"
+              placeholder="อีเมล"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+
+            <input
+              style={styles.input}
+              type="password"
+              placeholder="รหัสผ่าน (อย่างน้อย 6 ตัว)"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              minLength={6}
+              required
+            />
+
+            <button style={styles.mainButton} disabled={saving}>
+              {saving
+                ? "กำลังดำเนินการ..."
+                : mode === "login" ? "เข้าสู่ระบบ" : "สมัครสมาชิก"}
+            </button>
+          </form>
+
+          <p style={styles.message}>{message}</p>
+
+          <button
+            style={styles.linkButton}
+            onClick={() => {
+              setMode(mode === "login" ? "register" : "login");
+              setMessage("");
+            }}
+          >
+            {mode === "login"
+              ? "ยังไม่มีบัญชี? สมัครสมาชิก"
+              : "มีบัญชีแล้ว? เข้าสู่ระบบ"}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="app">
-      <header className="topbar">
-        <div className="brand">
-          <span className="peach">🍑</span>
-          <div>
-            <h2>Peach Streaming </h2>
-            <small>Streaming together, shining forever</small>
-          </div>
+    <div style={styles.app}>
+      <header style={styles.header}>
+        <div>
+          <strong>🍑 Peach Stream Hub</strong>
+          <small>JAehyun Support Project</small>
         </div>
-        <span className="heart">♡</span>
+        <button
+          style={styles.logout}
+          onClick={() => signOut(auth)}
+        >
+          ออกจากระบบ
+        </button>
       </header>
 
-      <nav className="navigation">
-        {nav.map(item => {
-          const Icon = item.icon;
-          return (
-            <button
-              key={item.name}
-              className={page === item.name ? "nav-item active" : "nav-item"}
-              onClick={() => setPage(item.name)}
-            >
-              <Icon size={19} />
-              <span>{item.name}</span>
-            </button>
-          );
-        })}
+      <nav style={styles.nav}>
+        {["Home", "Stream", "Ranking", "Profile"].map((item) => (
+          <button
+            key={item}
+            onClick={() => {
+              setPage(item);
+              setMessage("");
+            }}
+            style={{
+              ...styles.navButton,
+              background: page === item ? "#ff8db5" : "#fff0f5",
+              color: page === item ? "white" : "#a75b78"
+            }}
+          >
+            {item === "Home" ? "🏠" :
+             item === "Stream" ? "🎵" :
+             item === "Ranking" ? "🏆" : "👤"}
+            {" "}{item}
+          </button>
+        ))}
       </nav>
 
-      <main className="content">
+      <main style={styles.content}>
         {page === "Home" && (
           <>
-            <section className="welcome">
-              <span className="tag">♡ JAЕHYUN SUPPORT PROJECT</span>
-              <h1>Let's stream<br />together! 🍑</h1>
+            <section style={styles.hero}>
+              <div style={{ fontSize: 45 }}>🍑</div>
+              <h1>Let's stream together!</h1>
               <p>ทุกสตรีมของเรามีความหมาย</p>
-              <div className="welcome-icon">🍑</div>
+              <p>ยินดีต้อนรับ {user.displayName || "Peach Member"} 💗</p>
             </section>
 
-            <section className="section">
-              <div className="section-title">
-                <h2>Our Streaming Goal</h2>
-                <span>🎧</span>
-              </div>
-              {songs.map((song, index) => (
-                <div className="song-card" key={song.name}>
-                  <div className="song-heading">
-                    <strong>{song.name}</strong>
-                    <span>{Math.round(song.streams / song.goal * 100)}%</span>
-                  </div>
-                  <div className="progress">
-                    <div style={{
-                      width: `${Math.min(song.streams / song.goal * 100, 100)}%`
-                    }} />
-                  </div>
-                  <small>
-                    {song.streams.toLocaleString()} / {song.goal.toLocaleString()} streams
-                  </small>
-                </div>
-              ))}
-              <p className="notice">
-                * ตัวเลขนี้เป็นข้อมูลตัวอย่าง ยังไม่ใช่ยอดสตรีมจริง
+            <section style={styles.card}>
+              <h2>Our Streaming Goal 🎧</h2>
+              <p>ติดตามยอดสตรีมและเป้าหมายของแจฮยอนไปด้วยกัน</p>
+              <p style={styles.note}>
+                ยอดสตรีมจะแสดงเมื่อมีการเพิ่มข้อมูลจริงในระบบ
               </p>
             </section>
           </>
         )}
 
         {page === "Stream" && (
-          <section className="section">
-            <span className="tag">DAILY COLLECTION</span>
-            <h1>Monthly Peach Stamp 🍑</h1>
-            <p>ส่งหลักฐานการสตรีมเพื่อรับสแตมป์ประจำวัน</p>
-            <div className="stamp-preview">
-              <span>🍑</span>
-              <strong>Your daily stamp awaits!</strong>
-              <small>ระบบส่งหลักฐานจะเปิดใช้งานหลังเชื่อม Firebase</small>
-            </div>
-            <h2>Special Streaming Challenge</h2>
-            <p>ภารกิจพิเศษสะสม Peach Points</p>
+          <section style={styles.card}>
+            <h2>Monthly Peach Stamp 🍑</h2>
+            <p>พื้นที่สะสมสแตมป์ประจำวันของสมาชิก</p>
+            <p style={styles.note}>
+              ระบบส่งหลักฐานและรับสแตมป์จะเพิ่มในขั้นตอนถัดไป
+            </p>
           </section>
         )}
 
         {page === "Ranking" && (
-          <section className="section">
-            <span className="tag">PEACH COMMUNITY</span>
-            <h1>Peach Ranking 🏆</h1>
+          <section style={styles.card}>
+            <h2>🏆 Peach Ranking</h2>
             {members.map((member, index) => (
-              <div className="rank-card" key={member.name}>
+              <div key={member.id} style={styles.rankRow}>
                 <strong>#{index + 1}</strong>
-                <span>{member.name}</span>
-                <b>{member.points.toLocaleString()} pts</b>
+                <span>{member.displayName || "Peach Member"}</span>
+                <strong>{member.points || 0} pts</strong>
               </div>
             ))}
-            <p className="notice">คะแนนตัวอย่าง รอเชื่อมฐานข้อมูลสมาชิก</p>
+            {members.length === 0 && <p>ยังไม่มีสมาชิกในอันดับ</p>}
           </section>
         )}
 
         {page === "Profile" && (
-          <section className="section profile">
-            <div className="avatar">🍑</div>
-            <h1>My Peach Profile</h1>
-            <p>Welcome to Peach Stream Hub!</p>
-            <div className="profile-points">
-              <Star size={20} />
-              <strong>0 Peach Points</strong>
-            </div>
-            <p className="notice">ระบบแก้ไขโปรไฟล์จะเปิดใช้งานหลังเชื่อม Firebase</p>
+          <section style={styles.card}>
+            <h2>My Profile 👤</h2>
+            <p>อีเมล: {user.email}</p>
+            <input
+              style={styles.input}
+              placeholder="ชื่อสมาชิก"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+            />
+            <button
+              style={styles.mainButton}
+              onClick={saveName}
+              disabled={saving}
+            >
+              บันทึกชื่อ
+            </button>
+            <p>{message}</p>
           </section>
         )}
       </main>
-
-      <footer>
-        <Heart size={14} fill="currentColor" />
-        Made with love for Jaehyun
-      </footer>
     </div>
   );
 }
+
+const styles = {
+  center: {
+    minHeight: "100vh",
+    display: "grid",
+    placeItems: "center",
+    background: "#fff5f8",
+    color: "#b85c7d"
+  },
+  loginPage: {
+    minHeight: "100vh",
+    display: "grid",
+    placeItems: "center",
+    background: "linear-gradient(135deg,#fff1f6,#ffe0eb)",
+    padding: 20
+  },
+  loginCard: {
+    background: "white",
+    padding: 28,
+    borderRadius: 25,
+    width: "100%",
+    maxWidth: 390,
+    textAlign: "center",
+    boxShadow: "0 8px 30px #e9a9c455",
+    color: "#a75b78"
+  },
+  app: {
+    minHeight: "100vh",
+    background: "#fff6f9",
+    color: "#85465f",
+    fontFamily: "Arial, sans-serif"
+  },
+  header: {
+    padding: 18,
+    background: "white",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 10
+  },
+  nav: {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    gap: 8,
+    padding: 12,
+    background: "#ffe8f0"
+  },
+  navButton: {
+    border: 0,
+    borderRadius: 20,
+    padding: "10px 14px",
+    cursor: "pointer"
+  },
+  content: {
+    maxWidth: 850,
+    margin: "auto",
+    padding: 18
+  },
+  hero: {
+    background: "linear-gradient(135deg,#ffdce9,#fff0f5)",
+    borderRadius: 25,
+    padding: 30,
+    textAlign: "center",
+    marginBottom: 18
+  },
+  card: {
+    background: "white",
+    borderRadius: 22,
+    padding: 22,
+    marginBottom: 18,
+    boxShadow: "0 4px 18px #e9a9c422"
+  },
+  input: {
+    boxSizing: "border-box",
+    width: "100%",
+    padding: 13,
+    border: "1px solid #f3c4d5",
+    borderRadius: 12,
+    margin: "8px 0",
+    fontSize: 16
+  },
+  mainButton: {
+    width: "100%",
+    padding: 13,
+    border: 0,
+    borderRadius: 14,
+    background: "#ff8db5",
+    color: "white",
+    fontSize: 16,
+    cursor: "pointer",
+    marginTop: 10
+  },
+  logout: {
+    border: 0,
+    borderRadius: 12,
+    padding: 10,
+    background: "#fff0f5",
+    color: "#a75b78"
+  },
+  linkButton: {
+    border: 0,
+    background: "transparent",
+    color: "#d66d96",
+    marginTop: 15,
+    cursor: "pointer"
+  },
+  rankRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    gap: 10,
+    padding: 14,
+    borderBottom: "1px solid #ffe0eb"
+  },
+  note: {
+    color: "#b27b91",
+    fontSize: 13
+  },
+  message: {
+    color: "#c14e7d",
+    overflowWrap: "anywhere"
+  }
+};
+
