@@ -42,7 +42,6 @@ export default function App() {
         if (!snap.exists()) {
           await setDoc(ref, {
             displayName: currentUser.displayName || "Peach Member",
-            email: currentUser.email,
             points: 0,
             createdAt: serverTimestamp()
           });
