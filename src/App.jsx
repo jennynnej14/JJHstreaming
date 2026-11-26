@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
@@ -132,7 +131,7 @@ export default function App() {
   };
 
   if (loading) {
-    return <div style={styles.center}>กำลังเปิด Peach Stream Hub 🍑</div>;
+    return <div style={styles.center}>กำลังเปิด Vanlentine streaming 🍑</div>;
   }
 
   if (!user) {
@@ -140,7 +139,7 @@ export default function App() {
       <div style={styles.loginPage}>
         <div style={styles.loginCard}>
           <div style={{ fontSize: 55 }}>🍑</div>
-          <h1>Peach Stream Hub</h1>
+          <h1>Valentine Streaming</h1>
           <p>Let's stream together, shining forever!</p>
 
           <form onSubmit={handleAuth}>
@@ -202,7 +201,7 @@ export default function App() {
     <div style={styles.app}>
       <header style={styles.header}>
         <div>
-          <strong>🍑 Peach Stream Hub</strong>
+          <strong>🍑 Valentine streaming</strong>
           <small>JAehyun Support Project</small>
         </div>
         <button
