@@ -5,12 +5,12 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBYoWJ_b2UdGV-Hb4lInBXDmu2QCK4s0xU",
-  authDomain: "jjhstreaming.firebaseapp.com",
-  projectId: "jjhstreaming",
-  storageBucket: "jjhstreaming.firebasestorage.app",
+  apiKey: "AIzaSyBgtc1Z3kM5xLrCj3kDtEGsS3xFXBjp6W8",
+  authDomain: "valentines-streaming.firebaseapp.com",
+  projectId: "valentines-streaming",
+  storageBucket: "valentines-streaming.firebasestorage.app",
   messagingSenderId: "437008830052",
-  appId: "1:437008830052:web:f9ca7cd7068ec493609971"
+  appId: "1:614403496710:web:a925028d8964075e54dc87"
 };
 
 const app = initializeApp(firebaseConfig);
