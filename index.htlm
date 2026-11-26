@@ -1,33 +1,1616 @@
 <!DOCTYPE html>
-
 <html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>valentines Streaming • JAEHYUN</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans Thai"', 'sans-serif'],
+            thai: ['"Noto Sans Thai"', '"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            peach: {
+              50: '#FFF9FA',
+              100: '#FFF0F3',
+              200: '#FFE0E7',
+              300: '#FFC2D1',
+              400: '#FF99B4',
+              500: '#FF6B93',
+              600: '#EB4B77',
+            },
+            apricot: {
+              50: '#FFFBF7',
+              100: '#FFF2E6',
+              200: '#FFE1C7',
+              300: '#FFC89C',
+              400: '#FFA86B',
+            },
+            ink: {
+              900: '#3B232A',
+              700: '#6E4752',
+              500: '#9E7480',
+              400: '#BA96A0',
+            }
+          },
+          boxShadow: {
+            soft: '0 10px 30px -10px rgba(255, 107, 147, 0.16)',
+            card: '0 4px 20px -4px rgba(59, 35, 42, 0.06)',
+            float: '0 12px 28px -6px rgba(255, 107, 147, 0.28)',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --bg-grad: linear-gradient(160deg, #FFF9FA 0%, #FFF3F6 48%, #FFF7EE 100%);
+    }
+    body {
+      background: var(--bg-grad);
+      color: #3B232A;
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+    .glass-nav {
+      background: rgba(255, 252, 253, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(255, 194, 209, 0.45);
+    }
+    .glass-top {
+      background: rgba(255, 250, 252, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 214, 224, 0.45);
+    }
+    .peach-gradient-bar {
+      background: linear-gradient(90deg, #FF99B4 0%, #FF6B93 55%, #FFA86B 100%);
+    }
+    .peach-btn {
+      background: linear-gradient(135deg, #FF7DA0 0%, #FF5C88 100%);
+      box-shadow: 0 8px 20px -6px rgba(255, 92, 136, 0.45);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+    }
+    .peach-btn:active {
+      transform: scale(0.97);
+    }
+    .peach-btn:disabled {
+      opacity: 0.55;
+      box-shadow: none;
+    }
+    .stamp-frame {
+      background: radial-gradient(circle at 30% 25%, #FFFFFF 0%, #FFF2F5 70%, #FFE3EA 100%);
+      border: 2px dashed #FF99B4;
+    }
+    .stamp-unlocked {
+      background: radial-gradient(circle at 30% 25%, #FFFDF9 0%, #FFEBF0 75%, #FFD6E0 100%);
+      border: 2px solid #FF6B93;
+      box-shadow: 0 6px 14px -4px rgba(255, 107, 147, 0.32);
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #FFC2D1;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body class="pb-24 selection:bg-peach-200 selection:text-ink-900">
 
-  <head>
+  <!-- TOP HEADER -->
+  <header class="glass-top sticky top-0 z-40">
+    <div class="max-w-xl mx-auto px-4 h-14 flex items-center justify-between">
+      <!-- Secret Admin Trigger Logo (Tap 5 times) -->
+      <button id="secretLogoBtn" type="button" onclick="handleSecretLogoTap()" class="flex items-center gap-2.5 text-left focus:outline-none group" title="Peach Streaming">
+        <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-peach-200 via-peach-100 to-apricot-200 border border-peach-300/70 flex items-center justify-center shadow-sm group-active:scale-95 transition-transform">
+          <svg viewBox="0 0 32 32" class="w-5 h-5" fill="none">
+            <path d="M16 7C11.5 7 7 10.5 7 16.5C7 22.8 11.8 26.5 16 26.5C20.2 26.5 25 22.8 25 16.5C25 10.5 20.5 7 16 7Z" fill="#FF7DA0"/>
+            <path d="M16 7C14.5 11.5 15.2 20.5 16 26.5" stroke="#FF527E" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
+            <path d="M16 7C17.5 3.8 21.5 3 23.5 4.2C22.2 6.8 19.2 7.6 16 7Z" fill="#7ED39B"/>
+            <circle cx="12.5" cy="16.5" r="1.2" fill="#3B232A"/>
+            <circle cx="19.5" cy="16.5" r="1.2" fill="#3B232A"/>
+            <path d="M14.5 18.8C15.2 19.6 16.8 19.6 17.5 18.8" stroke="#3B232A" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-extrabold text-[15px] tracking-tight text-ink-900">Peach Streaming</span>
+            <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-peach-100 text-peach-600 border border-peach-200">JAEHYUN</span>
+          </div>
+          <p id="liveSyncStatus" class="text-[10px] text-ink-500 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+            <span data-i18n="syncReady">Real-time Ready</span>
+          </p>
+        </div>
+      </button>
 
-    <meta charset="UTF-8" />
+      <!-- Language Switcher -->
+      <div class="flex items-center gap-1 bg-peach-100/90 p-1 rounded-full border border-peach-200/80">
+        <button id="langThBtn" type="button" onclick="setLanguage('th')" class="px-2.5 py-1 rounded-full text-xs font-bold transition-all bg-white text-peach-600 shadow-xs">ไทย</button>
+        <button id="langEnBtn" type="button" onclick="setLanguage('en')" class="px-2.5 py-1 rounded-full text-xs font-bold transition-all text-ink-500 hover:text-ink-900">EN</button>
+      </div>
+    </div>
+  </header>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-xl mx-auto px-4 pt-4">
 
-    <meta name="theme-color" content="#fff1f6" />
+    <!-- ==================== TAB 1: HOME ==================== -->
+    <section id="tab-home" class="space-y-4">
+      <!-- Hero Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-peach-200/90 via-peach-100 to-apricot-100 border border-white shadow-soft p-4">
+        <div class="flex items-center gap-3.5">
+          <div class="relative shrink-0">
+            <img id="heroArtistImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="JAEHYUN" class="w-20 h-20 rounded-2xl object-cover border-2 border-white shadow-md" />
+            <span class="absolute -bottom-1.5 -right-1.5 bg-white text-peach-600 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs border border-peach-200">🍑 J</span>
+          </div>
+          <div class="min-w-0 flex-1">
+            <span class="inline-block text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/80 text-peach-600 mb-1" data-i18n="heroBadge">Official Fan Stream Hub</span>
+            <h1 class="text-lg font-extrabold text-ink-900 leading-snug" data-i18n="heroTitle">ปั่นสตรีมแจฮยอนไปด้วยกันนะ 🍑</h1>
+            <p class="text-xs text-ink-700 mt-0.5 line-clamp-2" data-i18n="heroSubtitle">รวมยอดสตรีมเรียลไทม์ รายชื่อเพลงในอัลบั้ม คู่มือแอปสตรีมเกาหลี และลิงก์เพลย์ลิสต์ประจำวัน</p>
+          </div>
+        </div>
+      </div>
 
-    <meta
+      <!-- STREAM TRACKER WIDGET -->
+      <div class="rounded-3xl bg-white/95 border border-peach-200/70 shadow-soft p-4 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-peach-500" data-i18n="trackerLabel">Live Stream Tracker</span>
+            <h2 class="text-base font-bold text-ink-900" data-i18n="trackerHeading">ยอดสตรีมสะสมทั้งหมด</h2>
+          </div>
+          <span id="milestonePctBadge" class="px-3 py-1 rounded-full text-xs font-extrabold bg-peach-100 text-peach-600 tabular-nums">0.0%</span>
+        </div>
 
-      name="description"
+        <!-- 1. Odometer Counter -->
+        <div class="rounded-2xl bg-gradient-to-br from-peach-50 to-apricot-50 border border-peach-200/60 p-3.5">
+          <div class="flex flex-wrap items-baseline justify-between gap-2">
+            <div>
+              <p class="text-[11px] text-ink-500 font-medium" data-i18n="spotifyBaseLabel">ยอดหลักล่าสุดจาก Spotify</p>
+              <div id="odometerBase" class="text-2xl sm:text-3xl font-extrabold text-ink-900 tracking-tight tabular-nums">14,230,500</div>
+            </div>
+            <div class="text-right">
+              <p class="text-[11px] text-peach-600 font-semibold" data-i18n="fanSubmittedTodayLabel">หลักฐานแฟนคลับส่งในเว็บ</p>
+              <div id="odometerFanBonus" class="text-lg sm:text-xl font-extrabold text-peach-500 tabular-nums">+ 0</div>
+            </div>
+          </div>
+          <div class="mt-2.5 pt-2.5 border-t border-peach-200/50 flex items-center justify-between text-xs">
+            <span class="text-ink-700 font-semibold" data-i18n="combinedTotalLabel">ยอดรวมเรียลไทม์</span>
+            <span id="odometerCombined" class="text-sm font-extrabold text-ink-900 tabular-nums">14,230,500</span>
+          </div>
+        </div>
 
-      content="Valentine Streaming & Fan Support"
+        <!-- 2. Milestone Progress Bar -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <span id="milestoneGoalText" class="font-bold text-ink-900">เป้าหมายต่อไป: 15,000,000 Streams</span>
+            <span id="milestonePctText" class="font-bold text-peach-600 tabular-nums">94.8%</span>
+          </div>
+          <div class="w-full h-3.5 rounded-full bg-peach-100 overflow-hidden p-0.5 border border-peach-200/70">
+            <div id="milestoneBarFill" class="h-full rounded-full peach-gradient-bar transition-all duration-700 ease-out" style="width: 94.8%"></div>
+          </div>
+          <p id="milestoneEncourageText" class="text-[11px] text-ink-700 font-medium">อีก 769,500 สตรีม จะถึงเป้าหมายแล้ว! สู้ๆ นะแจพือ 🍑</p>
+        </div>
 
-    />
+        <!-- 3. Featured Title Track Card (Spotify Track Card) -->
+        <div id="titleTrackCard" class="rounded-2xl bg-peach-50/90 border border-peach-200/80 p-3 flex items-center gap-3">
+          <img id="titleTrackCover" src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=200&q=80" alt="Title Track" class="w-14 h-14 rounded-xl object-cover shadow-xs shrink-0 border border-white" />
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-peach-500 text-white" data-i18n="titleTag">TITLE TRACK</span>
+              <span id="titleTrackAlbum" class="text-[11px] text-ink-500 truncate">J — The 1st Album</span>
+            </div>
+            <h3 id="titleTrackName" class="text-sm font-extrabold text-ink-900 truncate mt-0.5">Smoke</h3>
+            <p id="titleTrackStreams" class="text-xs font-bold text-peach-600 tabular-nums mt-0.5">8,420,150 streams</p>
+          </div>
+          <a id="titleTrackSpotifyBtn" href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" class="shrink-0 px-3 py-2 rounded-xl bg-[#1DB954] hover:bg-[#19a34a] text-white text-xs font-bold shadow-xs flex items-center gap-1 transition-colors">
+            <span>Spotify</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
 
-    <title>Valentine Streaming 🍑</title>
+      <!-- Playlist Quick Action Buttons (Daily & Long Loop) -->
+      <div class="grid grid-cols-2 gap-3">
+        <a id="dailyPlaylistLink" href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" class="rounded-2xl bg-white border border-peach-200/80 p-3.5 shadow-card hover:border-peach-400 transition-all flex flex-col justify-between gap-2">
+          <div class="w-9 h-9 rounded-xl bg-peach-100 text-peach-600 flex items-center justify-center text-base font-bold">▶</div>
+          <div>
+            <p class="text-xs font-extrabold text-ink-900" data-i18n="dailyPlaylistTitle">เพลย์ลิสต์สตรีมรายวัน</p>
+            <p class="text-[11px] text-ink-500 mt-0.5" data-i18n="dailyPlaylistSub">นับยอดเข้าชาร์ต 20 รอบ/เพลย์ลิสต์</p>
+          </div>
+        </a>
+        <a id="longPlaylistLink" href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" class="rounded-2xl bg-white border border-apricot-200 p-3.5 shadow-card hover:border-apricot-400 transition-all flex flex-col justify-between gap-2">
+          <div class="w-9 h-9 rounded-xl bg-apricot-100 text-apricot-400 flex items-center justify-center text-base font-bold">∞</div>
+          <div>
+            <p class="text-xs font-extrabold text-ink-900" data-i18n="longPlaylistTitle">เพลย์ลิสต์เปิดยาว</p>
+            <p class="text-[11px] text-ink-500 mt-0.5" data-i18n="longPlaylistSub">ฟังต่อเนื่อง / นับยอด Unfiltered</p>
+          </div>
+        </a>
+      </div>
 
-  </head>
+      <!-- Album Tracks List -->
+      <div class="rounded-3xl bg-white/95 border border-peach-200/70 shadow-card p-4 space-y-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-extrabold text-ink-900" data-i18n="albumTracksHeading">เพลงในอัลบั้ม (Album Tracks)</h3>
+          <span class="text-[11px] text-ink-500" data-i18n="tapToSpotify">กดเพื่อฟังบน Spotify</span>
+        </div>
+        <div id="albumTracksList" class="divide-y divide-peach-100"></div>
+      </div>
 
-  <body>
+      <!-- Korean Music Show Apps & Streaming Guide -->
+      <div class="rounded-3xl bg-white/95 border border-peach-200/70 shadow-card p-4 space-y-3">
+        <h3 class="text-sm font-extrabold text-ink-900" data-i18n="guideHeading">แอปสตรีมรายการเพลงเกาหลี & กฎการสตรีม</h3>
+        <div class="grid grid-cols-2 gap-2.5 text-xs">
+          <div class="p-3 rounded-2xl bg-peach-50 border border-peach-100">
+            <p class="font-bold text-ink-900">Melon / Genie / FLO</p>
+            <p class="text-[11px] text-ink-700 mt-0.5" data-i18n="kApp1Desc">สตรีมเพลงไตเติลแบบเต็มเพลงเพื่อเก็บคะแนนดิจิทัลรายการเพลงเกาหลี</p>
+          </div>
+          <div class="p-3 rounded-2xl bg-apricot-50 border border-apricot-100">
+            <p class="font-bold text-ink-900">IDOLCHAMP / LiNC&tin / UPICK</p>
+            <p class="text-[11px] text-ink-700 mt-0.5" data-i18n="kApp2Desc">เก็บโหวตหัวใจ/เจลลี่ล่วงหน้าสำหรับโหวตรายการเพลงและรางวัลพิเศษ</p>
+          </div>
+        </div>
+        <div class="p-3 rounded-2xl bg-peach-50/70 border border-peach-200/60 space-y-1.5 text-xs text-ink-700">
+          <p class="font-bold text-ink-900" data-i18n="spotifyRulesTitle">ข้อควรรู้ในการสตรีม Spotify</p>
+          <ul class="list-disc pl-4 space-y-1 text-[11px]">
+            <li data-i18n="rule1">ฟังเพลงให้จบเกิน 30 วินาที และหลีกเลี่ยงการกดวนซ้ำ 1 เพลงติดกันเกินไป (ควรแทรกเพลงอื่นในอัลบั้มหรือเพลย์ลิสต์)</li>
+            <li data-i18n="rule2">1 เพลย์ลิสต์ภารกิจรายวันเมื่อส่งหลักฐานในเว็บ จะคำนวณเข้าชาร์ต +20 สตรีม</li>
+            <li data-i18n="rule3">หากส่งหลักฐานเพิ่มเติมเกินภารกิจรายวัน ระบบจะนับเป็นยอด Unfiltered เพิ่มให้</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    <div id="root"></div>
+    <!-- ==================== TAB 2: STREAM STAMPS & EXTRA MISSIONS ==================== -->
+    <section id="tab-stream" class="hidden space-y-4">
+      <!-- Monthly Peach Stamp Card -->
+      <div class="rounded-3xl bg-white/95 border border-peach-200/80 shadow-soft p-4 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-peach-500" data-i18n="monthlyStampTag">Monthly Peach Stamp Card</span>
+            <h2 id="stampMonthTitle" class="text-base font-extrabold text-ink-900">บัตรสะสมแสตมป์สตรีม</h2>
+          </div>
+          <div class="text-right">
+            <span id="stampCountBadge" class="inline-block px-3 py-1 rounded-full text-xs font-extrabold bg-peach-100 text-peach-600 tabular-nums">0 / 30 Stamps</span>
+            <p id="stampResetCountdown" class="text-[10px] text-ink-500 mt-0.5 tabular-nums">รีเซ็ตภารกิจทุก 07:00 น.</p>
+          </div>
+        </div>
 
-    <script type="module" src="/src/main.jsx"></script>
+        <!-- Today's Daily Stamp Mission Box -->
+        <div class="rounded-2xl bg-gradient-to-r from-peach-50 to-apricot-50 border border-peach-200/80 p-3.5 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <div>
+              <p class="text-xs font-extrabold text-ink-900" data-i18n="dailyStampMissionTitle">ภารกิจสตรีมเพลย์ลิสต์รายวัน (วันละ 1 ครั้ง)</p>
+              <p class="text-[11px] text-ink-700" data-i18n="dailyStampMissionDesc">แนบรูปหลักฐานการสตรีมเพลย์ลิสต์เพื่อรับแสตมป์ลูกพีช +20 สตรีม และ +50 คะแนนแรงค์</p>
+            </div>
+            <span id="todayStampStatusPill" class="shrink-0 text-[10px] font-bold px-2.5 py-1 rounded-full bg-white text-peach-600 border border-peach-200" data-i18n="notStampedYet">ยังไม่สแตมป์วันนี้</span>
+          </div>
 
-  </body>
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+            <label class="flex-1 cursor-pointer">
+              <input id="dailyProofInput" type="file" accept="image/*" class="hidden" onchange="handleProofFileChange('daily', this)" />
+              <div class="w-full px-3 py-2 rounded-xl bg-white border border-dashed border-peach-300 hover:border-peach-500 text-xs text-ink-700 flex items-center justify-between gap-2 transition-colors">
+                <span id="dailyProofFileName" class="truncate" data-i18n="chooseProofImg">เลือกรูปหลักฐานการสตรีม...</span>
+                <span class="text-peach-600 font-bold shrink-0">📷</span>
+              </div>
+            </label>
+            <button id="submitDailyStampBtn" type="button" onclick="submitDailyStamp()" class="peach-btn px-4 py-2 rounded-xl text-white text-xs font-bold shrink-0" data-i18n="stampNowBtn">
+              ประทับแสตมป์
+            </button>
+          </div>
+          <div id="dailyProofPreviewWrap" class="hidden">
+            <img id="dailyProofPreviewImg" src="" alt="Daily proof preview" class="h-24 w-auto rounded-xl object-cover border border-peach-200 shadow-xs" />
+          </div>
+        </div>
 
+        <!-- Monthly Peach Stamp Grid -->
+        <div id="monthlyStampGrid" class="grid grid-cols-5 sm:grid-cols-6 gap-2.5"></div>
+
+        <!-- Save Stamp Card Image & Share to X -->
+        <div class="pt-2 border-t border-peach-100 flex flex-col sm:flex-row gap-2.5">
+          <button type="button" onclick="exportStampCardAndShareX()" class="flex-1 peach-btn py-2.5 px-4 rounded-2xl text-white text-xs font-extrabold flex items-center justify-center gap-2">
+            <span>🍑</span>
+            <span data-i18n="saveAndShareXBtn">บันทึกรูปบัตรแสตมป์ & แชร์ลง 𝕏</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Extra Unfiltered Stream Submission -->
+      <div class="rounded-3xl bg-white/95 border border-apricot-200 shadow-card p-4 space-y-3">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-apricot-100 text-apricot-400">Bonus / Unfiltered</span>
+            <h3 class="text-sm font-extrabold text-ink-900 mt-1" data-i18n="extraMissionTitle">ส่งหลักฐานสตรีมเพิ่มเติม (Unfiltered)</h3>
+          </div>
+          <span class="text-xs font-bold text-peach-600 tabular-nums" id="userUnfilteredCount">0 Extra</span>
+        </div>
+        <p class="text-[11px] text-ink-700" data-i18n="extraMissionDesc">สตรีมนอกเหนือจากภารกิจรายวัน สามารถส่งหลักฐานเพิ่มเพื่อสะสมยอด Unfiltered และคะแนนแรงค์พิเศษได้ไม่จำกัดรอบ</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <input id="extraStreamCountInput" type="number" min="1" max="10000" value="20" placeholder="จำนวนสตรีม" class="px-3 py-2 rounded-xl bg-peach-50/70 border border-peach-200 text-xs font-semibold text-ink-900 focus:outline-none focus:border-peach-400" />
+          <label class="sm:col-span-2 cursor-pointer">
+            <input id="extraProofInput" type="file" accept="image/*" class="hidden" onchange="handleProofFileChange('extra', this)" />
+            <div class="w-full px-3 py-2 rounded-xl bg-white border border-dashed border-apricot-300 hover:border-apricot-400 text-xs text-ink-700 flex items-center justify-between gap-2">
+              <span id="extraProofFileName" class="truncate" data-i18n="chooseExtraProofImg">แนบรูปหลักฐานสตรีมเพิ่มเติม...</span>
+              <span class="text-apricot-400 font-bold shrink-0">📎</span>
+            </div>
+          </label>
+        </div>
+        <div id="extraProofPreviewWrap" class="hidden">
+          <img id="extraProofPreviewImg" src="" alt="Extra proof preview" class="h-20 w-auto rounded-xl object-cover border border-apricot-200" />
+        </div>
+        <button id="submitExtraBtn" type="button" onclick="submitExtraStream()" class="w-full py-2.5 px-4 rounded-2xl bg-apricot-100 hover:bg-apricot-200 text-ink-900 border border-apricot-300 text-xs font-extrabold transition-colors" data-i18n="submitExtraBtn">
+          ส่งหลักฐานสตรีมเพิ่มเติม (+คะแนนแรงค์)
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: REAL-TIME RANKING ==================== -->
+    <section id="tab-rank" class="hidden space-y-4">
+      <!-- Current User Rank Summary -->
+      <div class="rounded-3xl bg-gradient-to-r from-peach-500 to-peach-400 text-white p-4 shadow-float">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <img id="rankMyAvatar" src="" alt="My avatar" class="w-14 h-14 rounded-2xl object-cover border-2 border-white/90 bg-white shrink-0" />
+            <div class="min-w-0">
+              <span class="text-[10px] font-bold uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full" data-i18n="yourCurrentRank">ระดับแรงค์ของคุณ</span>
+              <h2 id="rankMyName" class="text-base font-extrabold truncate mt-1">Peach Fan</h2>
+              <p id="rankMyTierBadge" class="text-xs font-bold text-peach-100">🍑 Peach Sprout (Lv.1)</p>
+            </div>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="text-[10px] text-peach-100" data-i18n="totalPointsLabel">คะแนนรวม</p>
+            <p id="rankMyPoints" class="text-xl font-extrabold tabular-nums">0</p>
+            <p id="rankMyStreams" class="text-[10px] text-peach-100 tabular-nums">0 streams</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 Rank Tiers Legend -->
+      <div class="rounded-3xl bg-white/95 border border-peach-200/70 shadow-card p-4 space-y-2.5">
+        <h3 class="text-xs font-extrabold uppercase tracking-wider text-ink-500" data-i18n="fiveRanksTitle">ระดับแรงค์แฟนคลับ 5 ขั้น</h3>
+        <div id="rankTiersList" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs"></div>
+      </div>
+
+      <!-- Real-time Leaderboard -->
+      <div class="rounded-3xl bg-white/95 border border-peach-200/70 shadow-card p-4 space-y-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-extrabold text-ink-900" data-i18n="leaderboardTitle">ตารางอันดับแบบเรียลไทม์</h3>
+          <span class="text-[11px] font-semibold text-peach-500" data-i18n="liveUpdating">อัปเดตสด</span>
+        </div>
+        <div id="leaderboardContainer" class="space-y-2"></div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: PROFILE ==================== -->
+    <section id="tab-profile" class="hidden space-y-4">
+      <div class="rounded-3xl bg-white/95 border border-peach-200/80 shadow-soft p-4 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-peach-500" data-i18n="profileTag">Fan Profile</span>
+            <h2 class="text-base font-extrabold text-ink-900" data-i18n="editProfileTitle">แก้ไขข้อมูลส่วนตัว & รูปโปรไฟล์</h2>
+          </div>
+          <button type="button" onclick="openAuthModal('switch')" class="text-xs font-bold px-3 py-1.5 rounded-xl bg-peach-100 text-peach-600 hover:bg-peach-200 transition-colors" data-i18n="switchAccountBtn">
+            สลับบัญชี
+          </button>
+        </div>
+
+        <!-- Avatar Preview & Resize/Crop Controls -->
+        <div class="flex flex-col items-center gap-3 py-2">
+          <div class="relative w-28 h-28 rounded-3xl overflow-hidden border-4 border-peach-200 shadow-md bg-peach-50">
+            <img id="profilePreviewImg" src="" alt="Profile preview" class="w-full h-full object-cover transition-transform duration-150 select-none" />
+          </div>
+          <label class="cursor-pointer px-3.5 py-1.5 rounded-full bg-peach-100 hover:bg-peach-200 text-peach-600 text-xs font-bold transition-colors">
+            <input id="profileAvatarFileInput" type="file" accept="image/*" class="hidden" onchange="handleAvatarUpload(this)" />
+            <span data-i18n="uploadAvatarBtn">เลือกรูปโปรไฟล์ใหม่</span>
+          </label>
+
+          <!-- Image Size / Zoom & Offset Controls -->
+          <div class="w-full max-w-xs space-y-2 pt-1">
+            <div class="flex items-center justify-between text-[11px] text-ink-700 font-semibold">
+              <span data-i18n="zoomSizeLabel">ปรับขนาดรูป (Zoom)</span>
+              <span id="zoomValueLabel" class="tabular-nums text-peach-600">100%</span>
+            </div>
+            <input id="avatarZoomRange" type="range" min="80" max="180" value="100" oninput="updateAvatarTransform()" class="w-full accent-peach-500" />
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <div class="flex justify-between text-[10px] text-ink-500">
+                  <span data-i18n="posXLabel">เลื่อนซ้าย-ขวา</span>
+                  <span id="posXLabelVal">0px</span>
+                </div>
+                <input id="avatarPosXRange" type="range" min="-40" max="40" value="0" oninput="updateAvatarTransform()" class="w-full accent-peach-500" />
+              </div>
+              <div>
+                <div class="flex justify-between text-[10px] text-ink-500">
+                  <span data-i18n="posYLabel">เลื่อนบน-ล่าง</span>
+                  <span id="posYLabelVal">0px</span>
+                </div>
+                <input id="avatarPosYRange" type="range" min="-40" max="40" value="0" oninput="updateAvatarTransform()" class="w-full accent-peach-500" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Name & Password Form -->
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs font-bold text-ink-700 mb-1" data-i18n="displayNameLabel">ชื่อเล่น / ชื่อแฟนคลับ</label>
+            <input id="profileNameInput" type="text" maxlength="30" class="w-full px-3.5 py-2.5 rounded-2xl bg-peach-50/70 border border-peach-200 text-sm font-semibold text-ink-900 focus:outline-none focus:border-peach-400" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-ink-700 mb-1" data-i18n="personalPinLabel">รหัสผ่านส่วนตัว (PIN / Password)</label>
+            <input id="profilePassInput" type="password" maxlength="24" placeholder="••••••••" class="w-full px-3.5 py-2.5 rounded-2xl bg-peach-50/70 border border-peach-200 text-sm font-semibold text-ink-900 focus:outline-none focus:border-peach-400" />
+          </div>
+        </div>
+
+        <button type="button" onclick="saveProfileChanges()" class="w-full peach-btn py-3 rounded-2xl text-white text-sm font-extrabold" data-i18n="saveProfileBtn">
+          บันทึกข้อมูลโปรไฟล์
+        </button>
+        <p id="profileSavedMsg" class="hidden text-center text-xs font-bold text-emerald-600"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAVIGATION BAR (5 ITEMS) -->
+  <nav class="glass-nav fixed bottom-0 inset-x-0 z-40">
+    <div class="max-w-xl mx-auto px-2 h-16 grid grid-cols-5 items-center text-[11px] font-bold">
+      <button type="button" onclick="openAuthModal('login')" class="flex flex-col items-center justify-center gap-0.5 text-ink-500 hover:text-peach-600 transition-colors">
+        <span class="text-base">🔐</span>
+        <span data-i18n="navLogin">ล็อคอิน</span>
+      </button>
+
+      <button id="nav-home" type="button" onclick="switchTab('home')" class="flex flex-col items-center justify-center gap-0.5 text-peach-600 transition-colors">
+        <span class="text-base">🏠</span>
+        <span data-i18n="navHome">หน้าแรก</span>
+      </button>
+
+      <button id="nav-stream" type="button" onclick="switchTab('stream')" class="relative -mt-5 flex flex-col items-center justify-center gap-0.5 text-ink-500 hover:text-peach-600 transition-colors">
+        <div class="w-12 h-12 rounded-2xl peach-btn text-white flex items-center justify-center text-xl shadow-float">
+          🍑
+        </div>
+        <span class="text-[10px] font-extrabold text-peach-600" data-i18n="navStream">สตรีม</span>
+      </button>
+
+      <button id="nav-rank" type="button" onclick="switchTab('rank')" class="flex flex-col items-center justify-center gap-0.5 text-ink-500 hover:text-peach-600 transition-colors">
+        <span class="text-base">👑</span>
+        <span data-i18n="navRank">แรงค์</span>
+      </button>
+
+      <button id="nav-profile" type="button" onclick="switchTab('profile')" class="flex flex-col items-center justify-center gap-0.5 text-ink-500 hover:text-peach-600 transition-colors">
+        <span class="text-base">🌸</span>
+        <span data-i18n="navProfile">โปรไฟล์</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== AUTH MODAL (LOGIN / REGISTER / SWITCH) ==================== -->
+  <div id="authModal" class="hidden fixed inset-0 z-50 bg-ink-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="w-full max-w-sm rounded-3xl bg-white border border-peach-200 shadow-2xl p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-peach-500">Peach Streaming ID</span>
+          <h3 id="authModalTitle" class="text-base font-extrabold text-ink-900">เข้าสู่ระบบ / ตั้งชื่อบัญชี</h3>
+        </div>
+        <button type="button" onclick="closeAuthModal()" class="w-8 h-8 rounded-full bg-peach-50 text-ink-500 hover:text-ink-900 font-bold">✕</button>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-ink-700 mb-1" data-i18n="authNameLabel">ชื่อของคุณ (Display Name)</label>
+          <input id="authNameInput" type="text" maxlength="30" placeholder="เช่น แจพือของน้อนแจน" class="w-full px-3.5 py-2.5 rounded-2xl bg-peach-50 border border-peach-200 text-sm font-semibold text-ink-900 focus:outline-none focus:border-peach-400" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-ink-700 mb-1" data-i18n="authPassLabel">ตั้งรหัสผ่านส่วนตัว (Password)</label>
+          <input id="authPassInput" type="password" maxlength="24" placeholder="ตั้งรหัสผ่านสำหรับบัญชีนี้" class="w-full px-3.5 py-2.5 rounded-2xl bg-peach-50 border border-peach-200 text-sm font-semibold text-ink-900 focus:outline-none focus:border-peach-400" />
+        </div>
+      </div>
+
+      <p id="authErrorMsg" class="hidden text-xs font-semibold text-rose-600"></p>
+
+      <button type="button" onclick="submitAuthForm()" class="w-full peach-btn py-3 rounded-2xl text-white text-sm font-extrabold" data-i18n="authSubmitBtn">
+        ยืนยันเข้าใช้งาน
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== SHARE TO X PREVIEW MODAL ==================== -->
+  <div id="shareModal" class="hidden fixed inset-0 z-50 bg-ink-900/45 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="w-full max-w-md rounded-3xl bg-white border border-peach-200 shadow-2xl p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-base font-extrabold text-ink-900" data-i18n="shareModalTitle">บันทึกรูปบัตรแสตมป์ & แชร์ลง 𝕏</h3>
+        <button type="button" onclick="closeShareModal()" class="w-8 h-8 rounded-full bg-peach-50 text-ink-500 hover:text-ink-900 font-bold">✕</button>
+      </div>
+      <p class="text-xs text-ink-700" data-i18n="shareModalDesc">บันทึกรูปภาพบัตรสะสมแสตมป์ลงเครื่องเรียบร้อยแล้ว สามารถกดปุ่มด้านล่างเพื่อเปิดหน้าโพสต์บน X พร้อมแนบรูปได้ทันทีครับ</p>
+      <div class="rounded-2xl overflow-hidden border border-peach-200 bg-peach-50 p-2">
+        <img id="exportedCardPreview" src="" alt="Exported Stamp Card" class="w-full h-auto rounded-xl" />
+      </div>
+      <div class="flex gap-2.5">
+        <a id="downloadCardLink" download="peach-stamp-card.png" class="flex-1 py-2.5 px-3 rounded-2xl bg-peach-100 hover:bg-peach-200 text-peach-600 text-xs font-extrabold text-center transition-colors" data-i18n="downloadAgainBtn">
+          ดาวน์โหลดรูปอีกครั้ง
+        </a>
+        <a id="openXIntentLink" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer" class="flex-1 peach-btn py-2.5 px-3 rounded-2xl text-white text-xs font-extrabold text-center" data-i18n="openXBtn">
+          โพสต์ลง 𝕏 (Twitter) ↗
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HIDDEN ADMIN AUTH & DASHBOARD MODAL ==================== -->
+  <div id="adminModal" class="hidden fixed inset-0 z-50 bg-ink-900/50 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+    <div class="w-full max-w-lg rounded-3xl bg-white border border-peach-200 shadow-2xl p-5 space-y-4 my-auto">
+      <div class="flex items-center justify-between border-b border-peach-100 pb-3">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-peach-100 text-peach-600">Hidden Admin Console</span>
+          <h3 class="text-base font-extrabold text-ink-900 mt-1">ระบบหลังบ้านแอดมิน (Admin Dashboard)</h3>
+        </div>
+        <button type="button" onclick="closeAdminModal()" class="w-8 h-8 rounded-full bg-peach-50 text-ink-500 hover:text-ink-900 font-bold">✕</button>
+      </div>
+
+      <!-- Admin Password Gate -->
+      <div id="adminPassGate" class="space-y-3">
+        <p class="text-xs text-ink-700">กรอกรหัสผ่านสำหรับแอดมินบ้านเบสเพื่ออัปเดตยอดสตรีมและรูปแสตมป์ประจำวัน</p>
+        <input id="adminPassInput" type="password" placeholder="Admin Passcode" class="w-full px-3.5 py-2.5 rounded-2xl bg-peach-50 border border-peach-200 text-sm font-semibold text-ink-900 focus:outline-none focus:border-peach-400" />
+        <p id="adminPassError" class="hidden text-xs font-bold text-rose-600">รหัสผ่านแอดมินไม่ถูกต้อง</p>
+        <button type="button" onclick="verifyAdminPass()" class="w-full peach-btn py-2.5 rounded-2xl text-white text-sm font-extrabold">ปลดล็อกหน้าแอดมิน</button>
+      </div>
+
+      <!-- Admin Controls -->
+      <div id="adminDashboardPanel" class="hidden space-y-4 max-h-[75vh] overflow-y-auto pr-1">
+        <div class="rounded-2xl bg-peach-50/80 border border-peach-200 p-3.5 space-y-3">
+          <h4 class="text-xs font-extrabold text-ink-900">1. อัปเดตยอดหลักจาก Spotify & เป้าหมายถัดไป</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-[11px] font-bold text-ink-700 mb-1">ยอดรวมจาก Spotify (ตัวเลข)</label>
+              <input id="adminSpotifyTotalInput" type="number" class="w-full px-3 py-2 rounded-xl bg-white border border-peach-200 text-sm font-bold text-ink-900" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-ink-700 mb-1">เป้าหมายสตรีมถัดไป</label>
+              <input id="adminMilestoneGoalInput" type="number" class="w-full px-3 py-2 rounded-xl bg-white border border-peach-200 text-sm font-bold text-ink-900" />
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-[11px] font-bold text-ink-700 mb-1">ยอดสตรีมเพลงไตเติล (Spotify)</label>
+              <input id="adminTitleStreamsInput" type="number" class="w-full px-3 py-2 rounded-xl bg-white border border-peach-200 text-sm font-bold text-ink-900" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-ink-700 mb-1">ลิงก์เพลย์ลิสต์สตรีมรายวัน</label>
+              <input id="adminDailyPlaylistUrlInput" type="url" class="w-full px-3 py-2 rounded-xl bg-white border border-peach-200 text-xs font-semibold text-ink-900" />
+            </div>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-ink-700 mb-1">ลิงก์เพลย์ลิสต์เปิดยาว</label>
+            <input id="adminLongPlaylistUrlInput" type="url" class="w-full px-3 py-2 rounded-xl bg-white border border-peach-200 text-xs font-semibold text-ink-900" />
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-apricot-50/80 border border-apricot-200 p-3.5 space-y-3">
+          <h4 class="text-xs font-extrabold text-ink-900">2. ตั้งค่ารูปแสตมป์ประจำแต่ละวัน (ไม่ซ้ำกันในแต่ละวัน)</h4>
+          <div class="grid grid-cols-3 gap-2">
+            <div>
+              <label class="block text-[11px] font-bold text-ink-700 mb-1">วันที่ (1-31)</label>
+              <select id="adminStampDaySelect" onchange="loadStampUrlForDay()" class="w-full px-2.5 py-2 rounded-xl bg-white border border-apricot-300 text-xs font-bold text-ink-900"></select>
+            </div>
+            <div class="col-span-2">
+              <label class="block text-[11px] font-bold text-ink-700 mb-1">ลิงก์รูปภาพแสตมป์ (Image URL)</label>
+              <input id="adminStampImgUrlInput" type="url" placeholder="https://..." class="w-full px-3 py-2 rounded-xl bg-white border border-apricot-300 text-xs font-semibold text-ink-900" />
+            </div>
+          </div>
+          <div class="flex items-center justify-between gap-2">
+            <button type="button" onclick="saveDailyStampImageAdmin()" class="px-3.5 py-2 rounded-xl bg-white hover:bg-apricot-100 border border-apricot-300 text-xs font-extrabold text-ink-900">
+              บันทึกรูปของวันนี้
+            </button>
+            <span id="adminStampSavedBadge" class="text-[11px] font-bold text-emerald-600 hidden">บันทึกแล้ว ✓</span>
+          </div>
+        </div>
+
+        <button type="button" onclick="saveAdminGlobalSettings()" class="w-full peach-btn py-3 rounded-2xl text-white text-sm font-extrabold">
+          อัปเดตข้อมูลขึ้นหน้าเว็บแบบเรียลไทม์
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIREBASE SDK & APP LOGIC -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+    import {
+      getFirestore, doc, setDoc, updateDoc, increment, onSnapshot, collection
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+    // วางค่า firebaseConfig ของคุณแทนที่ในวงเล็บปีกกาด้านล่างนี้
+    const firebaseConfig = {
+      apiKey: "REPLACE_WITH_YOUR_API_KEY",
+      authDomain: "REPLACE_WITH_YOUR_AUTH_DOMAIN",
+      projectId: "REPLACE_WITH_YOUR_PROJECT_ID",
+      storageBucket: "REPLACE_WITH_YOUR_STORAGE_BUCKET",
+      messagingSenderId: "REPLACE_WITH_YOUR_SENDER_ID",
+      appId: "REPLACE_WITH_YOUR_APP_ID"
+    };
+
+    const ADMIN_PASS = "PEACHADMIN";
+    const STREAMS_PER_DAILY_PLAYLIST = 20;
+    const POINTS_PER_DAILY_STAMP = 50;
+    const POINTS_PER_EXTRA_UNIT = 10;
+
+    const DEFAULT_ARTIST_IMG = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80";
+    const DEFAULT_COVER_IMG = "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=200&q=80";
+
+    const ALBUM_TRACKS = [
+      { id: "smoke", title: "Smoke", album: "J — The 1st Album", streams: 8420150, isTitle: true, cover: DEFAULT_COVER_IMG, url: "https://open.spotify.com" },
+      { id: "roses", title: "Roses", album: "J — The 1st Album", streams: 2150400, isTitle: false, cover: DEFAULT_COVER_IMG, url: "https://open.spotify.com" },
+      { id: "flamin-hot-lemon", title: "Flamin' Hot Lemon", album: "J — The 1st Album", streams: 1640800, isTitle: false, cover: DEFAULT_COVER_IMG, url: "https://open.spotify.com" },
+      { id: "dandelion", title: "Dandelion", album: "J — The 1st Album", streams: 1219150, isTitle: false, cover: DEFAULT_COVER_IMG, url: "https://open.spotify.com" },
+      { id: "completely", title: "Completely", album: "J — The 1st Album", streams: 800000, isTitle: false, cover: DEFAULT_COVER_IMG, url: "https://open.spotify.com" }
+    ];
+
+    const RANK_TIERS = [
+      { level: 1, nameTh: "ลูกพีชแรกแย้ม", nameEn: "Peach Sprout", minPts: 0, badge: "🍑" },
+      { level: 2, nameTh: "พีชบลอสซัม", nameEn: "Peach Blossom", minPts: 150, badge: "🌸" },
+      { level: 3, nameTh: "นักปั่นสตรีมพีช", nameEn: "Peach Runner", minPts: 400, badge: "🎀" },
+      { level: 4, nameTh: "แจพือตัวท็อป", nameEn: "Peach Ace", minPts: 800, badge: "👑" },
+      { level: 5, nameTh: "ตำนานสวนลูกพีช", nameEn: "Peach Legend", minPts: 1500, badge: "💎" }
+    ];
+
+    const I18N = {
+      th: {
+        syncReady: "ซิงก์เรียลไทม์พร้อมใช้งาน",
+        heroBadge: "Official Fan Stream Hub",
+        heroTitle: "ปั่นสตรีมแจฮยอนไปด้วยกันนะ 🍑",
+        heroSubtitle: "รวมยอดสตรีมเรียลไทม์ รายชื่อเพลงในอัลบั้ม คู่มือแอปสตรีมเกาหลี และลิงก์เพลย์ลิสต์ประจำวัน",
+        trackerLabel: "Live Stream Tracker",
+        trackerHeading: "ยอดสตรีมสะสมทั้งหมด",
+        spotifyBaseLabel: "ยอดหลักล่าสุดจาก Spotify",
+        fanSubmittedTodayLabel: "หลักฐานแฟนคลับส่งในเว็บ",
+        combinedTotalLabel: "ยอดรวมเรียลไทม์",
+        titleTag: "เพลงไตเติล",
+        dailyPlaylistTitle: "เพลย์ลิสต์สตรีมรายวัน",
+        dailyPlaylistSub: "นับยอดเข้าชาร์ต 20 รอบ/เพลย์ลิสต์",
+        longPlaylistTitle: "เพลย์ลิสต์เปิดยาว",
+        longPlaylistSub: "ฟังต่อเนื่อง / นับยอด Unfiltered",
+        albumTracksHeading: "เพลงในอัลบั้ม (Album Tracks)",
+        tapToSpotify: "กดเพื่อฟังบน Spotify",
+        guideHeading: "แอปสตรีมรายการเพลงเกาหลี & กฎการสตรีม",
+        kApp1Desc: "สตรีมเพลงไตเติลแบบเต็มเพลงเพื่อเก็บคะแนนดิจิทัลรายการเพลงเกาหลี",
+        kApp2Desc: "เก็บโหวตหัวใจ/เจลลี่ล่วงหน้าสำหรับโหวตรายการเพลงและรางวัลพิเศษ",
+        spotifyRulesTitle: "ข้อควรรู้ในการสตรีม Spotify",
+        rule1: "ฟังเพลงให้จบเกิน 30 วินาที และหลีกเลี่ยงการกดวนซ้ำ 1 เพลงติดกันเกินไป (ควรแทรกเพลงอื่นในอัลบั้มหรือเพลย์ลิสต์)",
+        rule2: "1 เพลย์ลิสต์ภารกิจรายวันเมื่อส่งหลักฐานในเว็บ จะคำนวณเข้าชาร์ต +20 สตรีม",
+        rule3: "หากส่งหลักฐานเพิ่มเติมเกินภารกิจรายวัน ระบบจะนับเป็นยอด Unfiltered เพิ่มให้",
+        monthlyStampTag: "Monthly Peach Stamp Card",
+        dailyStampMissionTitle: "ภารกิจสตรีมเพลย์ลิสต์รายวัน (วันละ 1 ครั้ง)",
+        dailyStampMissionDesc: "แนบรูปหลักฐานการสตรีมเพลย์ลิสต์เพื่อรับแสตมป์ลูกพีช +20 สตรีม และ +50 คะแนนแรงค์",
+        notStampedYet: "ยังไม่สแตมป์วันนี้",
+        stampedToday: "สแตมป์วันนี้แล้ว ✓",
+        chooseProofImg: "เลือกรูปหลักฐานการสตรีม...",
+        stampNowBtn: "ประทับแสตมป์",
+        saveAndShareXBtn: "บันทึกรูปบัตรแสตมป์ & แชร์ลง 𝕏",
+        extraMissionTitle: "ส่งหลักฐานสตรีมเพิ่มเติม (Unfiltered)",
+        extraMissionDesc: "สตรีมนอกเหนือจากภารกิจรายวัน สามารถส่งหลักฐานเพิ่มเพื่อสะสมยอด Unfiltered และคะแนนแรงค์พิเศษได้ไม่จำกัดรอบ",
+        chooseExtraProofImg: "แนบรูปหลักฐานสตรีมเพิ่มเติม...",
+        submitExtraBtn: "ส่งหลักฐานสตรีมเพิ่มเติม (+คะแนนแรงค์)",
+        yourCurrentRank: "ระดับแรงค์ของคุณ",
+        totalPointsLabel: "คะแนนรวม",
+        fiveRanksTitle: "ระดับแรงค์แฟนคลับ 5 ขั้น",
+        leaderboardTitle: "ตารางอันดับแบบเรียลไทม์",
+        liveUpdating: "อัปเดตสด",
+        profileTag: "Fan Profile",
+        editProfileTitle: "แก้ไขข้อมูลส่วนตัว & รูปโปรไฟล์",
+        switchAccountBtn: "สลับบัญชี",
+        uploadAvatarBtn: "เลือกรูปโปรไฟล์ใหม่",
+        zoomSizeLabel: "ปรับขนาดรูป (Zoom)",
+        posXLabel: "เลื่อนซ้าย-ขวา",
+        posYLabel: "เลื่อนบน-ล่าง",
+        displayNameLabel: "ชื่อเล่น / ชื่อแฟนคลับ",
+        personalPinLabel: "รหัสผ่านส่วนตัว (PIN / Password)",
+        saveProfileBtn: "บันทึกข้อมูลโปรไฟล์",
+        profileSaved: "บันทึกข้อมูลโปรไฟล์เรียบร้อยแล้ว ✓",
+        navLogin: "ล็อคอิน",
+        navHome: "หน้าแรก",
+        navStream: "สตรีม",
+        navRank: "แรงค์",
+        navProfile: "โปรไฟล์",
+        authNameLabel: "ชื่อของคุณ (Display Name)",
+        authPassLabel: "ตั้งรหัสผ่านส่วนตัว (Password)",
+        authSubmitBtn: "ยืนยันเข้าใช้งาน",
+        shareModalTitle: "บันทึกรูปบัตรแสตมป์ & แชร์ลง 𝕏",
+        shareModalDesc: "บันทึกรูปภาพบัตรสะสมแสตมป์ลงเครื่องเรียบร้อยแล้ว สามารถกดปุ่มด้านล่างเพื่อเปิดหน้าโพสต์บน X พร้อมแนบรูปได้ทันทีครับ",
+        downloadAgainBtn: "ดาวน์โหลดรูปอีกครั้ง",
+        openXBtn: "โพสต์ลง 𝕏 (Twitter) ↗",
+        needProofAlert: "กรุณาแนบรูปหลักฐานการสตรีมก่อนนะครับ",
+        alreadyStampedAlert: "วันนี้ประทับแสตมป์ภารกิจรายวันไปแล้วครับ ระบบจะรีเซ็ตภารกิจใหม่เวลา 07:00 น.",
+        stampSuccessAlert: "ประทับแสตมป์ลูกพีชสำเร็จ! +20 สตรีม และ +50 คะแนนแรงค์ 🍑",
+        extraSuccessAlert: "ส่งหลักฐานสตรีมเพิ่มเติมสำเร็จ! บันทึกเข้ายอด Unfiltered เรียบร้อยแล้ว ✨"
+      },
+      en: {
+        syncReady: "Real-time Sync Active",
+        heroBadge: "Official Fan Stream Hub",
+        heroTitle: "Let's stream for JAEHYUN together 🍑",
+        heroSubtitle: "Real-time stream tracker, album tracks, Korean music show guide, and daily playlists",
+        trackerLabel: "Live Stream Tracker",
+        trackerHeading: "Cumulative Streams",
+        spotifyBaseLabel: "Latest Spotify Baseline",
+        fanSubmittedTodayLabel: "Fan Proofs Submitted Today",
+        combinedTotalLabel: "Combined Real-time Total",
+        titleTag: "TITLE TRACK",
+        dailyPlaylistTitle: "Daily Stream Playlist",
+        dailyPlaylistSub: "Counts +20 chart streams / run",
+        longPlaylistTitle: "Long Loop Playlist",
+        longPlaylistSub: "Continuous play / Unfiltered log",
+        albumTracksHeading: "Album Tracks",
+        tapToSpotify: "Tap to open on Spotify",
+        guideHeading: "Korean Music Show Apps & Streaming Guide",
+        kApp1Desc: "Stream the title track in full to support Korean music show digital scores.",
+        kApp2Desc: "Collect hearts/jellies in advance for music show pre-voting and special polls.",
+        spotifyRulesTitle: "Spotify Streaming Guidelines",
+        rule1: "Play tracks past 30 seconds and avoid looping a single track repeatedly without mixing.",
+        rule2: "Each daily mission playlist proof submitted adds +20 chart streams.",
+        rule3: "Extra submissions beyond daily mission count toward Unfiltered streams.",
+        monthlyStampTag: "Monthly Peach Stamp Card",
+        dailyStampMissionTitle: "Daily Playlist Stamp Mission (Once per day)",
+        dailyStampMissionDesc: "Attach your playlist streaming proof to earn a Peach Stamp, +20 streams, and +50 rank points.",
+        notStampedYet: "Not stamped today",
+        stampedToday: "Stamped today ✓",
+        chooseProofImg: "Choose streaming proof image...",
+        stampNowBtn: "Stamp Peach",
+        saveAndShareXBtn: "Save Stamp Card & Share on 𝕏",
+        extraMissionTitle: "Extra Stream Proof (Unfiltered)",
+        extraMissionDesc: "Submit additional streaming proofs beyond daily tasks to log Unfiltered streams and earn extra rank points.",
+        chooseExtraProofImg: "Attach extra stream proof...",
+        submitExtraBtn: "Submit Extra Proof (+Rank Pts)",
+        yourCurrentRank: "Your Current Rank",
+        totalPointsLabel: "Total Points",
+        fiveRanksTitle: "5 Fan Rank Tiers",
+        leaderboardTitle: "Real-time Leaderboard",
+        liveUpdating: "Live",
+        profileTag: "Fan Profile",
+        editProfileTitle: "Edit Profile & Avatar",
+        switchAccountBtn: "Switch Account",
+        uploadAvatarBtn: "Upload New Avatar",
+        zoomSizeLabel: "Zoom / Size",
+        posXLabel: "Horizontal (X)",
+        posYLabel: "Vertical (Y)",
+        displayNameLabel: "Display Name",
+        personalPinLabel: "Personal Password",
+        saveProfileBtn: "Save Profile",
+        profileSaved: "Profile saved successfully ✓",
+        navLogin: "Login",
+        navHome: "Home",
+        navStream: "Stream",
+        navRank: "Rank",
+        navProfile: "Profile",
+        authNameLabel: "Your Display Name",
+        authPassLabel: "Personal Password",
+        authSubmitBtn: "Continue",
+        shareModalTitle: "Save Stamp Card & Share on 𝕏",
+        shareModalDesc: "Your Peach Stamp Card image has been saved. Tap below to open X and attach your saved image.",
+        downloadAgainBtn: "Download Again",
+        openXBtn: "Post on 𝕏 (Twitter) ↗",
+        needProofAlert: "Please attach a streaming proof image first.",
+        alreadyStampedAlert: "You already stamped today's mission. Resets daily at 07:00 AM.",
+        stampSuccessAlert: "Peach Stamp unlocked! +20 streams and +50 rank points 🍑",
+        extraSuccessAlert: "Extra stream proof submitted to Unfiltered log! ✨"
+      }
+    };
+
+    // State
+    let currentLang = localStorage.getItem("peach_lang") || "th";
+    let secretTapCount = 0;
+    let secretTapTimer = null;
+
+    let globalStats = {
+      spotifyBaseStreams: 14230500,
+      fanSubmittedStreams: 0,
+      unfilteredStreams: 0,
+      milestoneGoal: 15000000,
+      titleStreams: 8420150,
+      dailyPlaylistUrl: "https://open.spotify.com",
+      longPlaylistUrl: "https://open.spotify.com",
+      dailyStampImages: {} // e.g. { "1": "https://..." }
+    };
+
+    let userProfile = loadLocalUser();
+    let allUsers = [
+      { id: "demo1", name: "JaePeach_97", points: 1620, streams: 1480, avatar: DEFAULT_ARTIST_IMG },
+      { id: "demo2", name: "N้อนแจนของแจพือ", points: 920, streams: 840, avatar: DEFAULT_ARTIST_IMG },
+      { id: "demo3", name: "PeachMilk_214", points: 480, streams: 420, avatar: DEFAULT_ARTIST_IMG },
+      { id: "demo4", name: "ValentinesStream", points: 210, streams: 180, avatar: DEFAULT_ARTIST_IMG }
+    ];
+
+    let pendingDailyProofDataUrl = "";
+    let pendingExtraProofDataUrl = "";
+
+    function loadLocalUser() {
+      const saved = JSON.parse(localStorage.getItem("peach_user_profile") || "null");
+      if (saved) return saved;
+      return {
+        id: "user_" + Math.random().toString(36).slice(2, 9),
+        name: "Peach Fan",
+        password: "",
+        avatar: DEFAULT_ARTIST_IMG,
+        zoom: 100,
+        posX: 0,
+        posY: 0,
+        points: 0,
+        streams: 0,
+        unfilteredCount: 0,
+        stampedDays: [], // array of "YYYY-MM-D"
+        lastStampPeriodKey: ""
+      };
+    }
+
+    function saveLocalUser() {
+      localStorage.setItem("peach_user_profile", JSON.stringify(userProfile));
+    }
+
+    // Mission Period resets every day at 07:00 AM
+    function getMissionDateKey(dateObj = new Date()) {
+      const shifted = new Date(dateObj.getTime() - 7 * 60 * 60 * 1000);
+      const y = shifted.getFullYear();
+      const m = String(shifted.getMonth() + 1).padStart(2, "0");
+      const d = shifted.getDate();
+      return `${y}-${m}-${d}`;
+    }
+
+    function getCurrentMonthInfo() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth(); // 0-indexed
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const dayOfMonth = now.getDate();
+      const monthKey = `${year}-${String(month + 1).padStart(2, "0")}`;
+      const monthLabel = now.toLocaleDateString(currentLang === "th" ? "th-TH" : "en-US", {
+        month: "long",
+        year: "numeric"
+      });
+      return { year, month, daysInMonth, dayOfMonth, monthKey, monthLabel };
+    }
+
+    // Initialize Firebase if configured
+    let db = null;
+    const isFirebaseConfigured = firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith("REPLACE_");
+
+    if (isFirebaseConfigured) {
+      try {
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        db = getFirestore(app);
+
+        signInAnonymously(auth).catch((err) => console.warn("Auth fallback:", err));
+        onAuthStateChanged(auth, (user) => {
+          if (user && !localStorage.getItem("peach_user_profile")) {
+            userProfile.id = user.uid;
+            saveLocalUser();
+          }
+          syncUserToFirestore();
+        });
+
+        // Listen to global stats
+        onSnapshot(doc(db, "peachConfig", "globalStats"), (snap) => {
+          if (snap.exists()) {
+            globalStats = { ...globalStats, ...snap.data() };
+            renderAll();
+          } else {
+            setDoc(doc(db, "peachConfig", "globalStats"), globalStats, { merge: true });
+          }
+        });
+
+        // Listen to real-time users leaderboard
+        onSnapshot(collection(db, "peachUsers"), (snapshot) => {
+          const list = [];
+          snapshot.forEach((d) => list.push(d.data()));
+          if (list.length > 0) {
+            allUsers = list;
+            renderLeaderboard();
+          }
+        });
+      } catch (e) {
+        console.warn("Firebase init error, running in local/demo sync mode:", e);
+      }
+    }
+
+    async function syncUserToFirestore() {
+      if (!db || !userProfile.id) return;
+      try {
+        await setDoc(doc(db, "peachUsers", userProfile.id), {
+          id: userProfile.id,
+          name: userProfile.name,
+          avatar: userProfile.avatar,
+          points: userProfile.points,
+          streams: userProfile.streams,
+          unfilteredCount: userProfile.unfilteredCount || 0,
+          updatedAt: Date.now()
+        }, { merge: true });
+      } catch (e) {
+        console.warn("Firestore user sync skipped:", e);
+      }
+    }
+
+    async function addStreamsToGlobal(chartStreamsToAdd, unfilteredToAdd = 0) {
+      globalStats.fanSubmittedStreams = (globalStats.fanSubmittedStreams || 0) + chartStreamsToAdd;
+      globalStats.unfilteredStreams = (globalStats.unfilteredStreams || 0) + unfilteredToAdd;
+
+      if (db) {
+        try {
+          await setDoc(doc(db, "peachConfig", "globalStats"), {
+            fanSubmittedStreams: increment(chartStreamsToAdd),
+            unfilteredStreams: increment(unfilteredToAdd)
+          }, { merge: true });
+        } catch (e) {
+          console.warn("Global increment error:", e);
+        }
+      }
+      renderTracker();
+    }
+
+    // Language Switching
+    window.setLanguage = function (lang) {
+      currentLang = lang;
+      localStorage.setItem("peach_lang", lang);
+      const thBtn = document.getElementById("langThBtn");
+      const enBtn = document.getElementById("langEnBtn");
+      if (lang === "th") {
+        thBtn.className = "px-2.5 py-1 rounded-full text-xs font-bold transition-all bg-white text-peach-600 shadow-xs";
+        enBtn.className = "px-2.5 py-1 rounded-full text-xs font-bold transition-all text-ink-500 hover:text-ink-900";
+      } else {
+        enBtn.className = "px-2.5 py-1 rounded-full text-xs font-bold transition-all bg-white text-peach-600 shadow-xs";
+        thBtn.className = "px-2.5 py-1 rounded-full text-xs font-bold transition-all text-ink-500 hover:text-ink-900";
+      }
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (I18N[lang][key]) el.textContent = I18N[lang][key];
+      });
+      renderAll();
+    };
+
+    // Tab Navigation
+    window.switchTab = function (tabName) {
+      ["home", "stream", "rank", "profile"].forEach((t) => {
+        document.getElementById(`tab-${t}`).classList.toggle("hidden", t !== tabName);
+        const navBtn = document.getElementById(`nav-${t}`);
+        if (navBtn) {
+          navBtn.classList.toggle("text-peach-600", t === tabName);
+          navBtn.classList.toggle("text-ink-500", t !== tabName);
+        }
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    // Secret 5-tap Admin Trigger
+    window.handleSecretLogoTap = function () {
+      secretTapCount += 1;
+      clearTimeout(secretTapTimer);
+      secretTapTimer = setTimeout(() => {
+        secretTapCount = 0;
+      }, 1400);
+
+      if (secretTapCount >= 5) {
+        secretTapCount = 0;
+        openAdminModal();
+      }
+    };
+
+    window.openAdminModal = function () {
+      document.getElementById("adminModal").classList.remove("hidden");
+      document.getElementById("adminPassGate").classList.remove("hidden");
+      document.getElementById("adminDashboardPanel").classList.add("hidden");
+      document.getElementById("adminPassInput").value = "";
+      document.getElementById("adminPassError").classList.add("hidden");
+    };
+
+    window.closeAdminModal = function () {
+      document.getElementById("adminModal").classList.add("hidden");
+    };
+
+    window.verifyAdminPass = function () {
+      const val = document.getElementById("adminPassInput").value.trim();
+      if (val === ADMIN_PASS) {
+        document.getElementById("adminPassGate").classList.add("hidden");
+        document.getElementById("adminDashboardPanel").classList.remove("hidden");
+        populateAdminInputs();
+      } else {
+        document.getElementById("adminPassError").classList.remove("hidden");
+      }
+    };
+
+    function populateAdminInputs() {
+      document.getElementById("adminSpotifyTotalInput").value = globalStats.spotifyBaseStreams || 0;
+      document.getElementById("adminMilestoneGoalInput").value = globalStats.milestoneGoal || 15000000;
+      document.getElementById("adminTitleStreamsInput").value = globalStats.titleStreams || 8420150;
+      document.getElementById("adminDailyPlaylistUrlInput").value = globalStats.dailyPlaylistUrl || "https://open.spotify.com";
+      document.getElementById("adminLongPlaylistUrlInput").value = globalStats.longPlaylistUrl || "https://open.spotify.com";
+
+      const daySelect = document.getElementById("adminStampDaySelect");
+      daySelect.innerHTML = "";
+      for (let d = 1; d <= 31; d++) {
+        const opt = document.createElement("option");
+        opt.value = String(d);
+        opt.textContent = currentLang === "th" ? `วันที่ ${d}` : `Day ${d}`;
+        daySelect.appendChild(opt);
+      }
+      daySelect.value = String(new Date().getDate());
+      window.loadStampUrlForDay();
+    }
+
+    window.loadStampUrlForDay = function () {
+      const day = document.getElementById("adminStampDaySelect").value;
+      const imgs = globalStats.dailyStampImages || {};
+      document.getElementById("adminStampImgUrlInput").value = imgs[day] || "";
+    };
+
+    window.saveDailyStampImageAdmin = async function () {
+      const day = document.getElementById("adminStampDaySelect").value;
+      const url = document.getElementById("adminStampImgUrlInput").value.trim();
+      globalStats.dailyStampImages = { ...(globalStats.dailyStampImages || {}) };
+      if (url) {
+        globalStats.dailyStampImages[day] = url;
+      } else {
+        delete globalStats.dailyStampImages[day];
+      }
+
+      if (db) {
+        await setDoc(doc(db, "peachConfig", "globalStats"), {
+          dailyStampImages: globalStats.dailyStampImages
+        }, { merge: true });
+      }
+      renderStampCard();
+      const badge = document.getElementById("adminStampSavedBadge");
+      badge.classList.remove("hidden");
+      setTimeout(() => badge.classList.add("hidden"), 2000);
+    };
+
+    window.saveAdminGlobalSettings = async function () {
+      const spotifyBase = Number(document.getElementById("adminSpotifyTotalInput").value) || 0;
+      const milestoneGoal = Number(document.getElementById("adminMilestoneGoalInput").value) || 1000000;
+      const titleStreams = Number(document.getElementById("adminTitleStreamsInput").value) || 0;
+      const dailyUrl = document.getElementById("adminDailyPlaylistUrlInput").value.trim() || "https://open.spotify.com";
+      const longUrl = document.getElementById("adminLongPlaylistUrlInput").value.trim() || "https://open.spotify.com";
+
+      globalStats.spotifyBaseStreams = spotifyBase;
+      globalStats.milestoneGoal = milestoneGoal;
+      globalStats.titleStreams = titleStreams;
+      globalStats.dailyPlaylistUrl = dailyUrl;
+      globalStats.longPlaylistUrl = longUrl;
+
+      if (db) {
+        await setDoc(doc(db, "peachConfig", "globalStats"), {
+          spotifyBaseStreams: spotifyBase,
+          milestoneGoal,
+          titleStreams,
+          dailyPlaylistUrl: dailyUrl,
+          longPlaylistUrl: longUrl
+        }, { merge: true });
+      }
+      renderAll();
+      closeAdminModal();
+    };
+
+    // Auth Modal
+    window.openAuthModal = function () {
+      document.getElementById("authModal").classList.remove("hidden");
+      document.getElementById("authNameInput").value = userProfile.name || "";
+      document.getElementById("authPassInput").value = "";
+      document.getElementById("authErrorMsg").classList.add("hidden");
+    };
+
+    window.closeAuthModal = function () {
+      document.getElementById("authModal").classList.add("hidden");
+    };
+
+    window.submitAuthForm = function () {
+      const nameVal = document.getElementById("authNameInput").value.trim();
+      const passVal = document.getElementById("authPassInput").value;
+      if (!nameVal) {
+        const err = document.getElementById("authErrorMsg");
+        err.textContent = currentLang === "th" ? "กรุณาใส่ชื่อของคุณก่อนครับ" : "Please enter a display name.";
+        err.classList.remove("hidden");
+        return;
+      }
+
+      if (userProfile.password && passVal && passVal !== userProfile.password) {
+        // Switching to a new personal profile slot
+        userProfile = {
+          id: "user_" + Math.random().toString(36).slice(2, 9),
+          name: nameVal,
+          password: passVal,
+          avatar: DEFAULT_ARTIST_IMG,
+          zoom: 100,
+          posX: 0,
+          posY: 0,
+          points: 0,
+          streams: 0,
+          unfilteredCount: 0,
+          stampedDays: [],
+          lastStampPeriodKey: ""
+        };
+      } else {
+        userProfile.name = nameVal;
+        if (passVal) userProfile.password = passVal;
+      }
+
+      saveLocalUser();
+      syncUserToFirestore();
+      closeAuthModal();
+      renderAll();
+    };
+
+    // Profile & Image Zoom/Position Controls
+    window.handleAvatarUpload = function (input) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        userProfile.avatar = e.target.result;
+        userProfile.zoom = 100;
+        userProfile.posX = 0;
+        userProfile.posY = 0;
+        syncProfileControls();
+        updateAvatarTransform();
+      };
+      reader.readAsDataURL(file);
+    };
+
+    window.updateAvatarTransform = function () {
+      const zoom = Number(document.getElementById("avatarZoomRange").value || 100);
+      const posX = Number(document.getElementById("avatarPosXRange").value || 0);
+      const posY = Number(document.getElementById("avatarPosYRange").value || 0);
+
+      userProfile.zoom = zoom;
+      userProfile.posX = posX;
+      userProfile.posY = posY;
+
+      document.getElementById("zoomValueLabel").textContent = `${zoom}%`;
+      document.getElementById("posXLabelVal").textContent = `${posX}px`;
+      document.getElementById("posYLabelVal").textContent = `${posY}px`;
+
+      const img = document.getElementById("profilePreviewImg");
+      if (img) {
+        img.src = userProfile.avatar || DEFAULT_ARTIST_IMG;
+        img.style.transform = `translate(${posX}px, ${posY}px) scale(${zoom / 100})`;
+      }
+    };
+
+    function syncProfileControls() {
+      document.getElementById("profilePreviewImg").src = userProfile.avatar || DEFAULT_ARTIST_IMG;
+      document.getElementById("avatarZoomRange").value = userProfile.zoom || 100;
+      document.getElementById("avatarPosXRange").value = userProfile.posX || 0;
+      document.getElementById("avatarPosYRange").value = userProfile.posY || 0;
+      document.getElementById("profileNameInput").value = userProfile.name || "";
+      document.getElementById("profilePassInput").value = userProfile.password || "";
+      updateAvatarTransform();
+    }
+
+    window.saveProfileChanges = function () {
+      const newName = document.getElementById("profileNameInput").value.trim();
+      const newPass = document.getElementById("profilePassInput").value;
+      if (newName) userProfile.name = newName;
+      if (newPass) userProfile.password = newPass;
+      saveLocalUser();
+      syncUserToFirestore();
+      renderAll();
+
+      const msg = document.getElementById("profileSavedMsg");
+      msg.textContent = I18N[currentLang].profileSaved;
+      msg.classList.remove("hidden");
+      setTimeout(() => msg.classList.add("hidden"), 2500);
+    };
+
+    // Proof File Previews
+    window.handleProofFileChange = function (type, input) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (type === "daily") {
+          pendingDailyProofDataUrl = e.target.result;
+          document.getElementById("dailyProofFileName").textContent = file.name;
+          document.getElementById("dailyProofPreviewImg").src = pendingDailyProofDataUrl;
+          document.getElementById("dailyProofPreviewWrap").classList.remove("hidden");
+        } else {
+          pendingExtraProofDataUrl = e.target.result;
+          document.getElementById("extraProofFileName").textContent = file.name;
+          document.getElementById("extraProofPreviewImg").src = pendingExtraProofDataUrl;
+          document.getElementById("extraProofPreviewWrap").classList.remove("hidden");
+        }
+      };
+      reader.readAsDataURL(file);
+    };
+
+    // Submit Daily Playlist Stamp (Resets daily at 07:00 AM)
+    window.submitDailyStamp = async function () {
+      const t = I18N[currentLang];
+      const periodKey = getMissionDateKey();
+      const { monthKey, dayOfMonth } = getCurrentMonthInfo();
+      const stampEntryId = `${monthKey}-D${dayOfMonth}`;
+
+      if (!pendingDailyProofDataUrl) {
+        alert(t.needProofAlert);
+        return;
+      }
+      if (userProfile.lastStampPeriodKey === periodKey) {
+        alert(t.alreadyStampedAlert);
+        return;
+      }
+
+      userProfile.lastStampPeriodKey = periodKey;
+      if (!Array.isArray(userProfile.stampedDays)) userProfile.stampedDays = [];
+      if (!userProfile.stampedDays.includes(stampEntryId)) {
+        userProfile.stampedDays.push(stampEntryId);
+      }
+
+      userProfile.streams = (userProfile.streams || 0) + STREAMS_PER_DAILY_PLAYLIST;
+      userProfile.points = (userProfile.points || 0) + POINTS_PER_DAILY_STAMP;
+
+      pendingDailyProofDataUrl = "";
+      document.getElementById("dailyProofInput").value = "";
+      document.getElementById("dailyProofFileName").textContent = t.chooseProofImg;
+      document.getElementById("dailyProofPreviewWrap").classList.add("hidden");
+
+      saveLocalUser();
+      await addStreamsToGlobal(STREAMS_PER_DAILY_PLAYLIST, 0);
+      await syncUserToFirestore();
+      renderAll();
+      alert(t.stampSuccessAlert);
+    };
+
+    // Submit Extra Unfiltered Proof
+    window.submitExtraStream = async function () {
+      const t = I18N[currentLang];
+      if (!pendingExtraProofDataUrl) {
+        alert(t.needProofAlert);
+        return;
+      }
+      const extraStreams = Math.max(1, Number(document.getElementById("extraStreamCountInput").value) || 20);
+      const earnedPts = Math.max(10, Math.round((extraStreams / 20) * POINTS_PER_EXTRA_UNIT));
+
+      userProfile.unfilteredCount = (userProfile.unfilteredCount || 0) + extraStreams;
+      userProfile.points = (userProfile.points || 0) + earnedPts;
+
+      pendingExtraProofDataUrl = "";
+      document.getElementById("extraProofInput").value = "";
+      document.getElementById("extraProofFileName").textContent = t.chooseExtraProofImg;
+      document.getElementById("extraProofPreviewWrap").classList.add("hidden");
+
+      saveLocalUser();
+      await addStreamsToGlobal(0, extraStreams);
+      await syncUserToFirestore();
+      renderAll();
+      alert(t.extraSuccessAlert);
+    };
+
+    // Render Tracker & Album Tracks
+    function renderTracker() {
+      const base = Number(globalStats.spotifyBaseStreams) || 0;
+      const fanBonus = Number(globalStats.fanSubmittedStreams) || 0;
+      const combined = base + fanBonus;
+      const goal = Math.max(1, Number(globalStats.milestoneGoal) || 15000000);
+      const pct = Math.min(100, (combined / goal) * 100);
+      const remaining = Math.max(0, goal - combined);
+
+      document.getElementById("odometerBase").textContent = base.toLocaleString();
+      document.getElementById("odometerFanBonus").textContent = `+ ${fanBonus.toLocaleString()}`;
+      document.getElementById("odometerCombined").textContent = combined.toLocaleString();
+
+      document.getElementById("milestonePctBadge").textContent = `${pct.toFixed(1)}%`;
+      document.getElementById("milestonePctText").textContent = `${pct.toFixed(1)}%`;
+      document.getElementById("milestoneBarFill").style.width = `${pct}%`;
+
+      if (currentLang === "th") {
+        document.getElementById("milestoneGoalText").textContent = `เป้าหมายต่อไป: ${goal.toLocaleString()} Streams`;
+        document.getElementById("milestoneEncourageText").textContent =
+          remaining > 0
+            ? `อีก ${remaining.toLocaleString()} สตรีม จะถึงเป้าหมายแล้ว! สู้ๆ นะแจพือ 🍑`
+            : `ทะลุเป้าหมายเรียบร้อยแล้ว! ขอบคุณทุกสตรีมของแจพือครับ 🍑`;
+      } else {
+        document.getElementById("milestoneGoalText").textContent = `Next Milestone: ${goal.toLocaleString()} Streams`;
+        document.getElementById("milestoneEncourageText").textContent =
+          remaining > 0
+            ? `${remaining.toLocaleString()} streams left to reach the goal! Let's go 🍑`
+            : `Milestone reached! Thank you for streaming 🍑`;
+      }
+
+      // Featured Title Track Card
+      const titleStreams = Number(globalStats.titleStreams) || ALBUM_TRACKS[0].streams;
+      document.getElementById("titleTrackName").textContent = ALBUM_TRACKS[0].title;
+      document.getElementById("titleTrackAlbum").textContent = ALBUM_TRACKS[0].album;
+      document.getElementById("titleTrackCover").src = ALBUM_TRACKS[0].cover;
+      document.getElementById("titleTrackStreams").textContent = `${titleStreams.toLocaleString()} streams`;
+      document.getElementById("titleTrackSpotifyBtn").href = globalStats.dailyPlaylistUrl || ALBUM_TRACKS[0].url;
+
+      // Playlist Quick Links
+      document.getElementById("dailyPlaylistLink").href = globalStats.dailyPlaylistUrl || "https://open.spotify.com";
+      document.getElementById("longPlaylistLink").href = globalStats.longPlaylistUrl || "https://open.spotify.com";
+
+      // Album Tracks List
+      const listEl = document.getElementById("albumTracksList");
+      listEl.innerHTML = "";
+      ALBUM_TRACKS.forEach((track, idx) => {
+        const displayStreams = idx === 0 ? titleStreams : track.streams;
+        const row = document.createElement("a");
+        row.href = track.url;
+        row.target = "_blank";
+        row.rel = "noopener noreferrer";
+        row.className = "py-2.5 flex items-center justify-between gap-3 hover:bg-peach-50/70 px-2 rounded-xl transition-colors";
+        row.innerHTML = `
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="w-5 text-xs font-extrabold text-peach-500 tabular-nums">${idx + 1}</span>
+            <img src="${track.cover}" alt="${track.title}" class="w-10 h-10 rounded-lg object-cover border border-peach-100 shrink-0" />
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5">
+                <span class="text-xs font-bold text-ink-900 truncate">${track.title}</span>
+                ${track.isTitle ? `<span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-peach-100 text-peach-600">${I18N[currentLang].titleTag}</span>` : ""}
+              </div>
+              <p class="text-[10px] text-ink-500 truncate">${track.album}</p>
+            </div>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="text-xs font-bold text-ink-700 tabular-nums">${displayStreams.toLocaleString()}</p>
+            <p class="text-[10px] text-emerald-600 font-semibold">Spotify ↗</p>
+          </div>
+        `;
+        listEl.appendChild(row);
+      });
+    }
+
+    // Render Monthly Peach Stamp Card
+    function renderStampCard() {
+      const { daysInMonth, monthKey, monthLabel } = getCurrentMonthInfo();
+      const t = I18N[currentLang];
+      const isStampedToday = userProfile.lastStampPeriodKey === getMissionDateKey();
+
+      document.getElementById("stampMonthTitle").textContent =
+        currentLang === "th" ? `บัตรสะสมแสตมป์ • ${monthLabel}` : `Peach Stamp Card • ${monthLabel}`;
+
+      const stampedSet = new Set(userProfile.stampedDays || []);
+      const currentMonthStamps = Array.from(stampedSet).filter((id) => id.startsWith(`${monthKey}-D`)).length;
+
+      document.getElementById("stampCountBadge").textContent = `${currentMonthStamps} / ${daysInMonth} Stamps`;
+      document.getElementById("todayStampStatusPill").textContent = isStampedToday ? t.stampedToday : t.notStampedYet;
+      document.getElementById("submitDailyStampBtn").disabled = isStampedToday;
+      document.getElementById("userUnfilteredCount").textContent = `${(userProfile.unfilteredCount || 0).toLocaleString()} Unfiltered`;
+
+      const gridEl = document.getElementById("monthlyStampGrid");
+      gridEl.innerHTML = "";
+      const adminDayImgs = globalStats.dailyStampImages || {};
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const entryId = `${monthKey}-D${day}`;
+        const unlocked = stampedSet.has(entryId);
+        const dayImgSrc = adminDayImgs[String(day)] || DEFAULT_ARTIST_IMG;
+
+        const cell = document.createElement("div");
+        cell.className = `aspect-square rounded-2xl p-1.5 flex flex-col items-center justify-between transition-all ${
+          unlocked ? "stamp-unlocked" : "stamp-frame opacity-75"
+        }`;
+
+        cell.innerHTML = `
+          <span class="text-[10px] font-extrabold ${unlocked ? "text-peach-600" : "text-ink-400"} tabular-nums">${day}</span>
+          ${
+            unlocked
+              ? `<div class="relative w-9 h-9 rounded-full overflow-hidden border-2 border-peach-400 shadow-xs">
+                   <img src="${dayImgSrc}" alt="Day ${day}" class="w-full h-full object-cover" />
+                 </div>`
+              : `<span class="text-sm text-peach-300">🍑</span>`
+          }
+          <span class="text-[8px] font-bold ${unlocked ? "text-peach-500" : "text-ink-400"}">${unlocked ? "PEACH" : "—"}</span>
+        `;
+        gridEl.appendChild(cell);
+      }
+    }
+
+    // Rank Calculation & Rendering (5 Tiers + Real-time Leaderboard)
+    function getRankTier(points) {
+      let current = RANK_TIERS[0];
+      for (const tier of RANK_TIERS) {
+        if (points >= tier.minPts) current = tier;
+      }
+      return current;
+    }
+
+    function renderLeaderboard() {
+      const myTier = getRankTier(userProfile.points || 0);
+      document.getElementById("rankMyAvatar").src = userProfile.avatar || DEFAULT_ARTIST_IMG;
+      document.getElementById("rankMyName").textContent = userProfile.name || "Peach Fan";
+      document.getElementById("rankMyTierBadge").textContent =
+        `${myTier.badge} ${currentLang === "th" ? myTier.nameTh : myTier.nameEn} (Lv.${myTier.level})`;
+      document.getElementById("rankMyPoints").textContent = (userProfile.points || 0).toLocaleString();
+      document.getElementById("rankMyStreams").textContent = `${(userProfile.streams || 0).toLocaleString()} streams`;
+
+      // 5 Rank Tiers
+      const tiersEl = document.getElementById("rankTiersList");
+      tiersEl.innerHTML = "";
+      RANK_TIERS.forEach((tier) => {
+        const isCurrent = tier.level === myTier.level;
+        const div = document.createElement("div");
+        div.className = `p-2.5 rounded-2xl border flex items-center justify-between ${
+          isCurrent ? "bg-peach-100/90 border-peach-400" : "bg-peach-50/50 border-peach-100"
+        }`;
+        div.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="text-base">${tier.badge}</span>
+            <div>
+              <p class="font-bold text-ink-900 text-xs">${currentLang === "th" ? tier.nameTh : tier.nameEn}</p>
+              <p class="text-[10px] text-ink-500">Lv.${tier.level}</p>
+            </div>
+          </div>
+          <span class="text-[11px] font-extrabold text-peach-600 tabular-nums">${tier.minPts.toLocaleString()}+ pts</span>
+        `;
+        tiersEl.appendChild(div);
+      });
+
+      // Merge current user into leaderboard list
+      const mergedMap = new Map();
+      allUsers.forEach((u) => mergedMap.set(u.id, u));
+      mergedMap.set(userProfile.id, {
+        id: userProfile.id,
+        name: userProfile.name,
+        avatar: userProfile.avatar,
+        points: userProfile.points || 0,
+        streams: userProfile.streams || 0
+      });
+
+      const sorted = Array.from(mergedMap.values()).sort((a, b) => (b.points || 0) - (a.points || 0));
+      const boardEl = document.getElementById("leaderboardContainer");
+      boardEl.innerHTML = "";
+
+      sorted.forEach((u, index) => {
+        const tier = getRankTier(u.points || 0);
+        const isMe = u.id === userProfile.id;
+        const row = document.createElement("div");
+        row.className = `p-3 rounded-2xl border flex items-center justify-between gap-3 ${
+          isMe ? "bg-peach-50 border-peach-300" : "bg-white border-peach-100"
+        }`;
+        row.innerHTML = `
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="w-6 text-center text-xs font-extrabold ${index < 3 ? "text-peach-600" : "text-ink-400"} tabular-nums">#${index + 1}</span>
+            <img src="${u.avatar || DEFAULT_ARTIST_IMG}" alt="${u.name}" class="w-10 h-10 rounded-xl object-cover border border-peach-200 shrink-0" />
+            <div class="min-w-0">
+              <p class="text-xs font-extrabold text-ink-900 truncate">${u.name || "Peach Fan"} ${isMe ? `<span class="text-[10px] text-peach-500">(You)</span>` : ""}</p>
+              <p class="text-[10px] text-ink-500">${tier.badge} ${currentLang === "th" ? tier.nameTh : tier.nameEn}</p>
+            </div>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="text-xs font-extrabold text-peach-600 tabular-nums">${Number(u.points || 0).toLocaleString()} pts</p>
+            <p class="text-[10px] text-ink-500 tabular-nums">${Number(u.streams || 0).toLocaleString()} streams</p>
+          </div>
+        `;
+        boardEl.appendChild(row);
+      });
+    }
+
+    // Export Stamp Card Image & Open X Share Modal
+    window.exportStampCardAndShareX = function () {
+      const { daysInMonth, monthKey, monthLabel } = getCurrentMonthInfo();
+      const stampedSet = new Set(userProfile.stampedDays || []);
+      const count = Array.from(stampedSet).filter((id) => id.startsWith(`${monthKey}-D`)).length;
+      const tier = getRankTier(userProfile.points || 0);
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 900;
+      canvas.height = 640;
+      const ctx = canvas.getContext("2d");
+
+      // Pastel Peach Background
+      const grad = ctx.createLinearGradient(0, 0, 900, 640);
+      grad.addColorStop(0, "#FFF6F8");
+      grad.addColorStop(0.55, "#FFEBF1");
+      grad.addColorStop(1, "#FFF2E4");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 900, 640);
+
+      // Decorative Card Frame
+      ctx.fillStyle = "#FFFFFF";
+      ctx.beginPath();
+      ctx.roundRect(36, 36, 828, 568, 32);
+      ctx.fill();
+
+      ctx.strokeStyle = "#FFC2D1";
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // Header
+      ctx.fillStyle = "#FF5C88";
+      ctx.font = "bold 18px 'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif";
+      ctx.fillText("PEACH STREAMING • JAEHYUN", 72, 88);
+
+      ctx.fillStyle = "#3B232A";
+      ctx.font = "bold 28px 'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif";
+      ctx.fillText(`${userProfile.name || "Peach Fan"} — ${monthLabel}`, 72, 128);
+
+      ctx.fillStyle = "#6E4752";
+      ctx.font = "600 18px 'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif";
+      ctx.fillText(`${tier.badge} ${tier.nameEn} (${tier.nameTh})   •   🍑 ${count}/${daysInMonth} Stamps`, 72, 162);
+
+      // Stamp Mini Grid
+      const cols = 10;
+      const boxSize = 62;
+      const gap = 12;
+      const startX = 72;
+      const startY = 196;
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const idx = d - 1;
+        const c = idx % cols;
+        const r = Math.floor(idx / cols);
+        const x = startX + c * (boxSize + gap);
+        const y = startY + r * (boxSize + gap);
+        const isStamped = stampedSet.has(`${monthKey}-D${d}`);
+
+        ctx.fillStyle = isStamped ? "#FFE0E8" : "#FFF9FA";
+        ctx.beginPath();
+        ctx.roundRect(x, y, boxSize, boxSize, 14);
+        ctx.fill();
+
+        ctx.strokeStyle = isStamped ? "#FF6B93" : "#F3D2DA";
+        ctx.lineWidth = isStamped ? 2.5 : 1.5;
+        ctx.stroke();
+
+        ctx.fillStyle = isStamped ? "#EB4B77" : "#BA96A0";
+        ctx.font = "bold 15px 'Plus Jakarta Sans', sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(isStamped ? `🍑${d}` : `${d}`, x + boxSize / 2, y + boxSize / 2 + 5);
+        ctx.textAlign = "left";
+      }
+
+      // Footer Note
+      ctx.fillStyle = "#9E7480";
+      ctx.font = "600 16px 'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif";
+      ctx.fillText("#JAEHYUN #แจฮยอน #PeachStreaming", 72, 566);
+
+      const dataUrl = canvas.toDataURL("image/png");
+      document.getElementById("exportedCardPreview").src = dataUrl;
+
+      const dlLink = document.getElementById("downloadCardLink");
+      dlLink.href = dataUrl;
+      dlLink.download = `peach-stamp-${monthKey}.png`;
+
+      // Auto trigger download
+      const tmpA = document.createElement("a");
+      tmpA.href = dataUrl;
+      tmpA.download = `peach-stamp-${monthKey}.png`;
+      document.body.appendChild(tmpA);
+      tmpA.click();
+      document.body.removeChild(tmpA);
+
+      const tweetText = encodeURIComponent(
+        currentLang === "th"
+          ? `สะสมแสตมป์สตรีมแจฮยอนได้ ${count}/${daysInMonth} ดวงแล้วบน Peach Streaming 🍑✨ #JAEHYUN #แจฮยอน #PeachStreaming`
+          : `Collected ${count}/${daysInMonth} Peach Stamps for JAEHYUN on Peach Streaming 🍑✨ #JAEHYUN #PeachStreaming`
+      );
+      document.getElementById("openXIntentLink").href = `https://twitter.com/intent/tweet?text=${tweetText}`;
+      document.getElementById("shareModal").classList.remove("hidden");
+    };
+
+    window.closeShareModal = function () {
+      document.getElementById("shareModal").classList.add("hidden");
+    };
+
+    function renderAll() {
+      renderTracker();
+      renderStampCard();
+      renderLeaderboard();
+      syncProfileControls();
+    }
+
+    // Boot
+    window.setLanguage(currentLang);
+  </script>
+</body>
 </html>
